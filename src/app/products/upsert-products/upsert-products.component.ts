@@ -12,18 +12,18 @@ import {ProductsService} from "../products-list/products.service";
 })
 export class UpsertProductsComponent implements OnInit, OnDestroy{
 
-  sub!: Subscription;
-  getByIdSub!: Subscription;
-  updateSub!: Subscription;
-  deleteSub!: Subscription;
+  sub: Subscription | undefined;
+  getByIdSub: Subscription | undefined;
+  updateSub: Subscription | undefined;
+  deleteSub: Subscription | undefined;
 
-  product!: IProduct;
+  product: IProduct | undefined;
 
   form: FormGroup| undefined = undefined;
-
   constructor(private productsService: ProductsService, private fb: FormBuilder,
               private route: ActivatedRoute,
               private router: Router) {
+
   }
 
   ngOnInit(): void {
@@ -96,6 +96,9 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.sub?.unsubscribe();
+    this.getByIdSub?.unsubscribe();
+    this.deleteSub?.unsubscribe();
+    this.updateSub?.unsubscribe();
   }
 }
