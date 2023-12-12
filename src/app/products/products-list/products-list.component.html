@@ -1,0 +1,53 @@
+<div class="card">
+  <p-table [value]="filteredProducts" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <div class='row'>
+        <div class='col-md-4'>Filter by:</div>
+        <div class='col-md-2'>
+          <input type='text'
+                 [(ngModel)]='listFilter' />
+        </div>
+      </div>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Food</th>
+        <th scope="col">CaloriePer100g</th>
+        <th scope="col">ProteinPer100g</th>
+        <th scope="col">FatPer100g</th>
+        <th scope="col">CarbohydratePer100g</th>
+        <th scope="col">
+          <button class='btn btn-outline-secondary'
+                  style='width:100px'
+                  (click)='onCreate()'>
+            <i class='fa fa-chevron-circle-right'></i> Create
+          </button>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{ product.id | number }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.caloriePer100g | number }}</td>
+        <td>{{ product.proteinPer100g | number }}</td>
+        <td>{{ product.fatPer100g | number }}</td>
+        <td>{{ product.carbohydratePer100g | number }}</td>
+        <button class='btn btn-outline-secondary'
+                style='width:100px'
+                (click)='onUpdate(product.id)'>
+          <i class='fa fa-chevron-circle-right'></i> Update
+        </button>
+        <div>
+          <button class='btn btn-outline-secondary'
+                  style='width:100px'
+                  (click)='onDelete(product.id)'>
+            Delete
+          </button>
+          <!--          <ngb-toast *ngIf="show" header="Hello" [autohide]="false" (hidden)="show=false">-->
+          <!--            {{product.name}} is removed.-->
+          <!--          </ngb-toast>-->
+        </div>
+      </tr>
+      </ng-template>
+  </p-table>
+</div>

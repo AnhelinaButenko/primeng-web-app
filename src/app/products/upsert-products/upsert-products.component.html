@@ -1,0 +1,46 @@
+<div *ngIf="form">
+  <form [formGroup]="form"
+        (ngSubmit)="onSubmit()">
+    <div class='row'>
+      <div class='col-md-4'>Input name:</div>
+      <div class='col-md-2'>
+        <input type='text'
+               formControlName="name" />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'>Input calorie per 100 g:</div>
+      <div class='col-md-2'>
+        <input type='text'
+               formControlName="caloriePer100g" />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'>Input protein per 100 g:</div>
+      <div class='col-md-2'>
+        <input type='text'
+               formControlName="proteinPer100g" />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'>Input fat per 100 g:</div>
+      <div class='col-md-2'>
+        <input type='text'
+               formControlName="fatPer100g" />
+      </div>
+    </div>
+    <div class='row'>
+      <div class='col-md-4'>Input carbohydrate per 100 g:</div>
+      <div class='col-md-2'>
+        <input type='text'
+               formControlName="carbohydratePer100g" />
+      </div>
+    </div>
+    <button type="submit" [disabled]="!form.valid">Submit</button>
+    <div *ngIf="product.id">
+      <button type="button" (click)="delete()">Delete</button>
+    </div>
+  </form>
+  {{ form.value | json }}
+  valid :{{ form.valid }}
+</div>
