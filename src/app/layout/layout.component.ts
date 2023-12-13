@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit{
         label: 'Products',
         icon: 'pi pi-shopping-bag',
         command: async () => {
-          await this.router.navigate(['products']);
+          await this.router.navigate(['products/list']);
         },
         items: [
           {
@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit{
             icon: 'pi pi-fw pi-plus',
             command: async () => {
               await this.router.navigate(['product-create']);
-            },
+            }
           },
           {
             label: 'Delete',
