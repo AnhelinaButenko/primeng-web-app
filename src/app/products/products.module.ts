@@ -7,6 +7,7 @@ import {ProductsRoutingModule} from "./products-routing.module";
 import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UpsertProductsComponent } from './upsert-products/upsert-products.component';
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UpsertProductsComponent } from './upsert-products/upsert-products.compo
     RouterOutlet,
     TableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ButtonModule
   ]
 })
 export class ProductsModule { }

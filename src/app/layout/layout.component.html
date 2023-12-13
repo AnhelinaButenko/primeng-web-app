@@ -1,13 +1,14 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
     <div class="flex">
-      <div class="flex-1 h-4rem font-bold text-center pl-3 pt-3 border-round">
-        <i class="pi pi-calculator" style="font-size: 2rem"></i>
-      </div>
-      <div class="lg:flex-order-5 h-4rem font-bold text-center pl-3 pr-4 border-round">
-        <h4>Calorie Tracker</h4>
+      <div class="flex-1 h-4rem font-bold text-center pl-1 pt-2 ">
+        <p-button [outlined]="true">
+          <i class="pi pi-calculator" style="font-size: 1.5rem"></i>
+          <span class="ml-1 font-bold">Calorie Tracker</span>
+        </p-button>
       </div>
     </div>
   </ng-template>
 </p-menubar>
 <router-outlet></router-outlet>
+
