@@ -3,6 +3,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {IProduct} from "./products-list";
 import {ProductsService} from "./products.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-products-list',
@@ -31,7 +32,8 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
 
   constructor(private productsService: ProductsService,
               private route: ActivatedRoute,
-              private router: Router) {}
+              private router: Router,
+              private messageService: MessageService) {}
 
   performFilter(filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
@@ -62,7 +64,7 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
             }
           });
         }, 2000);
-        //location.reload();
+        this.messageService.add({severity:'success', summary:'Service Message', detail:'This product is removed'});
       },
       error: err => this.errorMessage = err
     });

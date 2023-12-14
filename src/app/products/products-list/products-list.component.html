@@ -1,8 +1,9 @@
-<div class="card">
+<div class="card mt-1">
+  <p-messages></p-messages>
   <p-table [value]="filteredProducts" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
   <div class='row'>
-    <div class='col-md-4 pb-1'>Filter by:</div>
+    <div class='col-md-4 pb-1' style="color: dimgray">Filter by:</div>
     <div class='col-md-2'>
     <span class="p-input-icon-left pb-1">
     <i class="pi pi-search" style="font-size: 80%"></i>
@@ -38,9 +39,6 @@
         <div class="mt-2">
           <p-button  label="Delete" (click)='onDelete(product.id)' [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
         </div>
-<!--        <p-toast></p-toast>-->
-<!--        <button type="button" pButton pRipple (click)="onUpdate(product.id)" label="Show" class="p-button-success"></button>-->
-
         <!--          <ngb-toast *ngIf="show" header="Hello" [autohide]="false" (hidden)="show=false">-->
         <!--            {{product.name}} is removed.-->
         <!--          </ngb-toast>-->

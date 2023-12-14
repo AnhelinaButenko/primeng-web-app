@@ -9,6 +9,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UpsertProductsComponent } from './upsert-products/upsert-products.component';
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
+import {RippleModule} from "primeng/ripple";
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
+import {MessagesModule} from "primeng/messages";
 
 @NgModule({
   declarations: [
@@ -24,7 +28,12 @@ import {InputTextModule} from "primeng/inputtext";
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
-    InputTextModule
+    InputTextModule,
+    RippleModule,
+    ToastModule,
+    MessagesModule
+  ], providers: [
+    MessageService
   ]
 })
 export class ProductsModule { }
