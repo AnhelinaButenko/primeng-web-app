@@ -8,6 +8,7 @@ import {TableModule} from "primeng/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { UpsertProductsComponent } from './upsert-products/upsert-products.component';
 import {ButtonModule} from "primeng/button";
+import {InputTextModule} from "primeng/inputtext";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ButtonModule} from "primeng/button";
     TableModule,
     FormsModule,
     ReactiveFormsModule,
-    ButtonModule
+    ButtonModule,
+    InputTextModule
   ]
 })
 export class ProductsModule { }
