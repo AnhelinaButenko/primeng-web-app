@@ -13,6 +13,7 @@ import {RippleModule} from "primeng/ripple";
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
 import {MessagesModule} from "primeng/messages";
+import {SkeletonModule} from "primeng/skeleton";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MessagesModule} from "primeng/messages";
     InputTextModule,
     RippleModule,
     ToastModule,
-    MessagesModule
+    MessagesModule,
+    SkeletonModule
   ], providers: [
     MessageService
   ]

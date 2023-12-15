@@ -1,7 +1,5 @@
-<div class="card mt-1">
+<div *ngIf="!isLoading; else loading" class="card mt-1">
   <p-messages></p-messages>
-  <p-table [value]="filteredProducts" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
   <div class='row'>
     <div class='col-md-4 pb-1' style="color: dimgray">Filter by:</div>
     <div class='col-md-2'>
@@ -11,7 +9,6 @@
     </span>
     </div>
   </div>
-<!--</div>-->
 <p-table [value]="filteredProducts" [tableStyle]="{ 'min-width': '100%' }">
   <ng-template pTemplate="header">
     <tr>
@@ -46,6 +43,18 @@
     </tr>
   </ng-template>
 </p-table>
-</ng-template>
-</p-table>
 </div>
+<ng-template #loading>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+  <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>
+</ng-template>
+<!--<div *ngIf="isLoading">-->
+<!--  Data is Loading.-->
+<!--</div>-->
