@@ -4,6 +4,7 @@ import {IProduct} from "../products-list/products-list";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../products-list/products.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-upsert-products',
@@ -22,7 +23,8 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
   form: FormGroup| undefined = undefined;
   constructor(private productsService: ProductsService, private fb: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private messageService: MessageService) {
 
   }
 
@@ -63,6 +65,7 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
       this.updateSub = this.productsService.updateProduct(this.form?.value.id, this.form?.value).subscribe({
         next: product => {
           console.log(product);
+          this.messageService.add({severity:'success', summary:'Service Message', detail:'This product is updated'});
         }
       })
     }
@@ -70,6 +73,7 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
       this.sub = this.productsService.createProducts(this.form?.value).subscribe({
         next: product => {
           console.log(product);
+          this.messageService.add({severity:'success', summary:'Service Message', detail:'This product is created'});
         }
       });
     }
@@ -90,6 +94,7 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
             fatPer100g: [product.fatPer100g, [Validators.required]],
             carbohydratePer100g: [product.carbohydratePer100g, [Validators.required]],
           });
+          this.messageService.add({severity:'success', summary:'Service Message', detail:'This product is removed'});
         }
       });
     }
