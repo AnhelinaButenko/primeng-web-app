@@ -19,6 +19,8 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   private _listFilter = '';
   products!: any[];
 
+  isLoading = false;
+
   get listFilter(): string {
     return this._listFilter;
   }
@@ -42,10 +44,14 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.sub = this.productsService.getProducts().subscribe({
       next: products => {
         this.productsList = products;
         this.filteredProducts = this.productsList;
+
+        this.isLoading = false;
       },
       error: err => this.errorMessage = err
     });

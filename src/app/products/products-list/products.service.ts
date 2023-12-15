@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import {IProduct} from "./products-list";
-import { Observable, catchError, tap, throwError, map } from "rxjs";
+import {Observable, catchError, tap, throwError, map, delay} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class ProductsService {
   getProducts(): Observable<IProduct[]> {
     return this.https.get<IProduct[]>(this.productUrl)
       .pipe(
+        delay(3000),
         tap(data => console.log('All: ', JSON.stringify(data))),
         catchError(this.handleError)
       );
