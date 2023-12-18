@@ -35,7 +35,9 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   constructor(private productsService: ProductsService,
               private route: ActivatedRoute,
               private router: Router,
-              private messageService: MessageService) {}
+              private messageService: MessageService) {
+
+  }
 
   performFilter(filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
