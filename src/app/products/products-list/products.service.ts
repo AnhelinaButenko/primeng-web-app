@@ -13,7 +13,7 @@ export class ProductsService {
   getProducts(): Observable<IProduct[]> {
     return this.https.get<IProduct[]>(this.productUrl)
       .pipe(
-        delay(3000),
+        delay(1000),
         tap(data => console.log('All: ', JSON.stringify(data))),
         catchError(this.handleError)
       );
