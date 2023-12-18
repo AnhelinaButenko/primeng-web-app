@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {IProduct} from "../products-list/products-list";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../products-list/products.service";
 import {MessageService} from "primeng/api";
+import {ManufacturersListService} from "../../manufacturers/manufacturers-list/manufacturers-list.service";
+import {IManufacturer} from "../../manufacturers/manufacturers-list/manufacturers-list";
 
 @Component({
   selector: 'app-upsert-products',
@@ -20,16 +22,25 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
 
   product: IProduct | undefined;
 
+  manufacturers: IManufacturer[] = [];
+
   form: FormGroup| undefined = undefined;
+
   constructor(private productsService: ProductsService, private fb: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private messageService: MessageService) {
-
+              private messageService: MessageService,
+              private manufacturersListService: ManufacturersListService) {
   }
 
   ngOnInit(): void {
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    this.manufacturersListService.getManufacturers().subscribe((manufacturers: IManufacturer[]) => {
+      this.manufacturers = manufacturers;
+    });
+
     if(id) {
       this.getByIdSub = this.productsService.getById(id).subscribe({
         next: (product: IProduct) => {
@@ -42,6 +53,7 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
             proteinPer100g: [product.proteinPer100g, [Validators.required]],
             fatPer100g: [product.fatPer100g, [Validators.required]],
             carbohydratePer100g: [product.carbohydratePer100g, [Validators.required]],
+            manufacturerId: [product.manufacturerId],
           });
         }
       });
@@ -54,6 +66,7 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
         proteinPer100g: [undefined, [Validators.required]],
         fatPer100g: [undefined, [Validators.required]],
         carbohydratePer100g: [undefined, [Validators.required]],
+        manufacturerId: [undefined],
       });
     }
   }
