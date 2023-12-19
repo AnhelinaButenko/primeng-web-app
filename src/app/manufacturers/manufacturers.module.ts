@@ -14,6 +14,9 @@ import {MessagesModule} from "primeng/messages";
 import {SkeletonModule} from "primeng/skeleton";
 import {MessageService} from "primeng/api";
 import {ManufacturersRoutingModule} from "./manufacturers-routing.module";
+import {PickListModule} from "primeng/picklist";
+import {DragDropModule} from "primeng/dragdrop";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import {ManufacturersRoutingModule} from "./manufacturers-routing.module";
     RippleModule,
     ToastModule,
     MessagesModule,
-    SkeletonModule
+    SkeletonModule,
+    PickListModule,
+    DragDropModule,
+    DropdownModule,
   ], providers: [
     MessageService
   ]

@@ -1,10 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {IManufacturer} from "../manufacturers-list/manufacturers-list";
 import {ManufacturersListService} from "../manufacturers-list/manufacturers-list.service";
+import {ProductsService} from "../../products/products-list/products.service";
+import {IProduct} from "../../products/products-list/products-list";
 
 
 @Component({
@@ -18,17 +20,25 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
   getByIdSub: Subscription | undefined;
   updateSub: Subscription | undefined;
   deleteSub: Subscription | undefined;
-
   manufacturer: IManufacturer | undefined;
-
+  sourceProducts: IProduct[] = [];
+  targetProducts: IProduct[] = [];
   form: FormGroup| undefined = undefined;
+
   constructor(private manufacturersService: ManufacturersListService, private fb: FormBuilder,
               private route: ActivatedRoute,
               private router: Router,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private productService: ProductsService,
+              private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
+    this.productService.getProducts().subscribe((products: IProduct[]) => {
+      this.sourceProducts = products;
+      this.cdr.markForCheck();
+    });
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if(id) {
       this.getByIdSub = this.manufacturersService.getById(id).subscribe({
@@ -53,8 +63,21 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(JSON.stringify(this.form?.value));
 
+    // this.targetProducts.forEach(targetProduct => {
+    //     targetProduct.id;
+    // });
+
+    let targetProductsId: number[] =
+      this.targetProducts.map(item => item.id);
+
+    const man: IManufacturer = {
+      id: this.form?.value.id ?? 0,
+      productsId: targetProductsId,
+      name: this.form?.value.name ?? ""
+    }
+
     if (this.form?.value.id) {
-      this.updateSub = this.manufacturersService.updateManufacturer(this.form?.value.id, this.form?.value).subscribe({
+      this.updateSub = this.manufacturersService.updateManufacturer(this.form?.value.id, man).subscribe({
         next: manufacturer => {
           console.log(manufacturer);
           this.messageService.add({severity:'success', summary:'Service Message', detail:'This manufacturer is updated'});
@@ -62,7 +85,7 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
       })
     }
     else {
-      this.sub = this.manufacturersService.createManufacturers(this.form?.value).subscribe({
+      this.sub = this.manufacturersService.createManufacturers(man).subscribe({
         next: manufacturer => {
           console.log(manufacturer);
           this.messageService.add({severity:'success', summary:'Service Message', detail:'This manufacturer is created'});

@@ -19,11 +19,8 @@ export class UpsertProductsComponent implements OnInit, OnDestroy{
   getByIdSub: Subscription | undefined;
   updateSub: Subscription | undefined;
   deleteSub: Subscription | undefined;
-
   product: IProduct | undefined;
-
   manufacturers: IManufacturer[] = [];
-
   form: FormGroup| undefined = undefined;
 
   constructor(private productsService: ProductsService, private fb: FormBuilder,
