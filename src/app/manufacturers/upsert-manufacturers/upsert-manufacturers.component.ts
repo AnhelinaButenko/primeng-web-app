@@ -40,6 +40,13 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
     });
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
+    // const savedProducts = localStorage.getItem(`manufacturer_${id}_products`);
+
+    // if (savedProducts) {
+    //   this.targetProducts = JSON.parse(savedProducts);
+    // }
+
     if(id) {
       this.getByIdSub = this.manufacturersService.getById(id).subscribe({
         next: (manufacturer: IManufacturer) => {
@@ -49,6 +56,11 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
             id: [manufacturer.id],
             name: [manufacturer.name, [Validators.required]],
           });
+
+          if (manufacturer.productsId) {
+            this.targetProducts = this.sourceProducts.filter((product => manufacturer.productsId?.includes(product.id)));
+            this.sourceProducts = this.sourceProducts.filter((product => !manufacturer.productsId?.includes(product.id)));
+          }
         }
       });
     }
@@ -63,12 +75,7 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     console.log(JSON.stringify(this.form?.value));
 
-    // this.targetProducts.forEach(targetProduct => {
-    //     targetProduct.id;
-    // });
-
-    let targetProductsId: number[] =
-      this.targetProducts.map(item => item.id);
+    let targetProductsId: number[] = this.targetProducts.map(item=> item.id);
 
     const man: IManufacturer = {
       id: this.form?.value.id ?? 0,
@@ -81,6 +88,9 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
         next: manufacturer => {
           console.log(manufacturer);
           this.messageService.add({severity:'success', summary:'Service Message', detail:'This manufacturer is updated'});
+
+          // localStorage.setItem(`manufacturer_${this.form?.value.id}_products`,
+          //   JSON.stringify(this.targetProducts));
         }
       })
     }
@@ -89,6 +99,9 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
         next: manufacturer => {
           console.log(manufacturer);
           this.messageService.add({severity:'success', summary:'Service Message', detail:'This manufacturer is created'});
+
+          // localStorage.setItem(`manufacturer_${this.form?.value.id}_products`,
+          //   JSON.stringify(this.targetProducts));
         }
       });
     }
@@ -110,6 +123,30 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // selectedProductsState: any = {};
+
+  // onProductMove(event: any): void {
+  //   const movedProduct = event.items[0];
+  //   const direction = event.to === this.targetProducts ? 'toSource' : 'toTarget';
+  //
+  //   if (direction === 'toTarget') {
+  //     this.targetProducts.push(movedProduct);
+  //     this.sourceProducts = this.sourceProducts.filter(product => product.id !== movedProduct.id);
+  //   } else {
+  //     this.sourceProducts.push(movedProduct);
+  //     this.targetProducts = this.targetProducts.filter(product => product.id !== movedProduct.id);
+  //   }
+  //
+  //   this.saveProductsState();
+  // }
+  //
+  // saveProductsState(): void {
+  //   this.selectedProductsState = {
+  //     source: this.sourceProducts,
+  //     target: this.targetProducts
+  //   };
+  // }
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
