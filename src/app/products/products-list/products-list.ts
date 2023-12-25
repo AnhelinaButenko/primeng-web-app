@@ -3,6 +3,7 @@ import {IManufacturer} from "../../manufacturers/manufacturers-list/manufacturer
 export interface IProduct {
   id: number;
   manufacturer: IManufacturer;
+  manufacturerName: string;
   manufacturerId: number;
   name: string;
   caloriePer100g: number;
