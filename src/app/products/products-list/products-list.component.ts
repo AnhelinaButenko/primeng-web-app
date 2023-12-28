@@ -18,6 +18,7 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   show = false;
   private _listFilter = '';
   products!: any[];
+  selectedProduct: string | undefined;
 
   isLoading = false;
 
@@ -32,6 +33,13 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   filteredProducts: IProduct[] = [];
   productsList: IProduct[] = [];
 
+  filterOptions = [
+    { label: 'All products', value: 'all' },
+    { label: 'Products with Manufacturer', value: 'withManufacturer' },
+    { label: 'Products without Manufacturer', value: 'withoutManufacturer' }
+  ];
+
+  selectedFilterOption: string = 'all';
   constructor(private productsService: ProductsService,
               private route: ActivatedRoute,
               private router: Router,
@@ -41,8 +49,23 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
 
   performFilter(filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
+    if (this.selectedFilterOption === 'withManufacturer') {
+      return this.productsList.filter((product: IProduct) =>
+        product.manufacturerName && product.manufacturerName.toLocaleLowerCase().includes(filterBy)
+      );
+    } else if (this.selectedFilterOption === 'withoutManufacturer') {
+      return this.productsList.filter((product: IProduct) =>
+        !product.manufacturerName || (product.manufacturerName && !product.manufacturerName.toLocaleLowerCase().includes(filterBy))
+      );
+    }
     return this.productsList.filter((product: IProduct) =>
-      product.name.toLocaleLowerCase().includes(filterBy));
+      product.name.toLocaleLowerCase().includes(filterBy)
+    );
+  }
+
+  onFilterChange(event: any): void {
+    this.selectedFilterOption = event.value;
+    this.listFilter = '';
   }
 
   ngOnInit(): void {
