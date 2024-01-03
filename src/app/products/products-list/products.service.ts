@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from "@angular/common/http";
 import {IProduct} from "./products-list";
-import {Observable, catchError, tap, throwError, map, delay} from "rxjs";
+import {Observable, catchError, tap, throwError, map, delay, filter} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductsService {
-  private productUrl = "https://localhost:7116/api/Product";
+  private readonly productUrl = "https://localhost:7116/api/Product";
   constructor(private https: HttpClient) { }
 
-  getProducts(): Observable<IProduct[]> {
-    return this.https.get<IProduct[]>(this.productUrl)
+  getProducts(filter: string = ''): Observable<IProduct[]> {
+    // return this.https.get<IProduct[]>(`${this.productUrl}?filter=${filter}`)
+    return this.https.get<IProduct[]>(this.productUrl + "?=" + filter)
       .pipe(
         delay(1000),
         tap(data => console.log('All: ', JSON.stringify(data))),

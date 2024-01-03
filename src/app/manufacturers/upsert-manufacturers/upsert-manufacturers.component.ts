@@ -33,7 +33,7 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
               private cdr: ChangeDetectorRef) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(filter: string=''): void {
     this.productService.getProducts().subscribe((products: IProduct[]) => {
       this.sourceProducts = products;
       this.cdr.markForCheck();

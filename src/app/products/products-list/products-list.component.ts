@@ -18,8 +18,6 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   show = false;
   private _listFilter = '';
   products!: any[];
-  selectedProduct: string | undefined;
-
   isLoading = false;
 
   get listFilter(): string {
@@ -27,7 +25,7 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   }
   set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredProducts = this.performFilter(value);
+    this.performFilter();
   }
 
   filteredProducts: IProduct[] = [];
@@ -40,32 +38,50 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   ];
 
   selectedFilterOption: string = 'all';
+
   constructor(private productsService: ProductsService,
               private route: ActivatedRoute,
               private router: Router,
               private messageService: MessageService) {
-
   }
 
-  performFilter(filterBy: string): IProduct[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    if (this.selectedFilterOption === 'withManufacturer') {
-      return this.productsList.filter((product: IProduct) =>
-        product.manufacturerName && product.manufacturerName.toLocaleLowerCase().includes(filterBy)
-      );
-    } else if (this.selectedFilterOption === 'withoutManufacturer') {
-      return this.productsList.filter((product: IProduct) =>
-        !product.manufacturerName || (product.manufacturerName && !product.manufacturerName.toLocaleLowerCase().includes(filterBy))
-      );
+  private filterBySearchString(products: IProduct[], searchStr: string): IProduct[] {
+    if (!searchStr) return products;
+    return products.filter(p => p.name.toLowerCase().includes(searchStr.toLowerCase()));
+  }
+
+  private filterByManufacturer(products: IProduct[], filterType: string): IProduct[] {
+    switch (filterType) {
+      case 'withManufacturer':
+        return products.filter(p => p.manufacturerName);
+      case 'withoutManufacturer':
+        return products.filter(p => !p.manufacturerName);
+      default:
+        return products;
     }
-    return this.productsList.filter((product: IProduct) =>
-      product.name.toLocaleLowerCase().includes(filterBy)
-    );
   }
 
-  onFilterChange(event: any): void {
-    this.selectedFilterOption = event.value;
-    this.listFilter = '';
+  performFilter(): void {
+    let filteredProducts = this.productsList;
+
+    filteredProducts = this.filterBySearchString(filteredProducts, this.listFilter);
+    filteredProducts = this.filterByManufacturer(filteredProducts, this.selectedFilterOption);
+
+    this.filteredProducts = filteredProducts;
+
+    // filterBy = filterBy.toLocaleLowerCase();
+    // if (this.selectedFilterOption === 'withManufacturer') {
+    //   return this.productsList.filter((product: IProduct) =>
+    //     product.manufacturerName && product.manufacturerName.toLocaleLowerCase().includes(filterBy)
+    //   );
+    // } else if (this.selectedFilterOption === 'withoutManufacturer') {
+    //   return this.productsList.filter((product: IProduct) =>
+    //     !product.manufacturerName || (product.manufacturerName && !product.manufacturerName.toLocaleLowerCase().includes(filterBy))
+    //   );
+    // }
+    // return this.productsList.filter((product: IProduct) =>
+    //   product.name.toLocaleLowerCase().includes(filterBy)
+    // );
   }
 
   ngOnInit(): void {
@@ -74,12 +90,23 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
     this.sub = this.productsService.getProducts().subscribe({
       next: products => {
         this.productsList = products;
-        this.filteredProducts = this.productsList;
-
+        this.performFilter();
         this.isLoading = false;
       },
       error: err => this.errorMessage = err
     });
+  }
+
+  onFilterChange(event: any): void {
+    this.selectedFilterOption = event.value.value;
+    this.performFilter();
+    // this.sub = this.productsService.getProducts(this.selectedFilterOption).subscribe({
+    //   next: products => {
+    //     this.productsList = products;
+    //     this.onApplyFilter();
+    //   },
+    //   error: err => this.errorMessage = err
+    // });
   }
 
   onDelete(id: number): void {
