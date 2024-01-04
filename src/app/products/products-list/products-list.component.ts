@@ -16,21 +16,21 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
   deleteSub!: Subscription;
   updateSub!: Subscription;
   show = false;
-  private _listFilter = '';
   products!: any[];
   isLoading = false;
+  productsList: IProduct[] = [];
+  private _listFilter = '';
 
   get listFilter(): string {
     return this._listFilter;
   }
   set listFilter(value: string) {
     this._listFilter = value;
-    this.performFilter();
+    // this.performFilter();
   }
-
-  filteredProducts: IProduct[] = [];
-  productsList: IProduct[] = [];
-
+  //
+  // filteredProducts: IProduct[] = [];
+  //
   filterOptions = [
     { label: 'All products', value: 'all' },
     { label: 'Products with Manufacturer', value: 'withManufacturer' },
@@ -45,43 +45,41 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
               private messageService: MessageService) {
   }
 
-  private filterBySearchString(products: IProduct[], searchStr: string): IProduct[] {
-    if (!searchStr) return products;
-    return products.filter(p => p.name.toLowerCase().includes(searchStr.toLowerCase()));
-  }
+  // private filterBySearchString(products: IProduct[], searchStr: string): IProduct[] {
+  //   if (!searchStr) return products;
+  //   return products.filter(p => p.name.toLowerCase().includes(searchStr.toLowerCase()));
+  // }
+  //
+  // private filterByManufacturer(products: IProduct[], filterType: string): IProduct[] {
+  //   switch (filterType) {
+  //     case 'withManufacturer':
+  //       return products.filter(p => p.manufacturerName);
+  //     case 'withoutManufacturer':
+  //       return products.filter(p => !p.manufacturerName);
+  //     default:
+  //       return products;
+  //   }
+  // }
+  //
+  // performFilter(): void {
+  //   let filteredProducts = this.productsList;
+  //
+  //   filteredProducts = this.filterBySearchString(filteredProducts, this.listFilter);
+  //   filteredProducts = this.filterByManufacturer(filteredProducts, this.selectedFilterOption);
+  //
+  //   this.filteredProducts = filteredProducts;
+  // }
 
-  private filterByManufacturer(products: IProduct[], filterType: string): IProduct[] {
-    switch (filterType) {
-      case 'withManufacturer':
-        return products.filter(p => p.manufacturerName);
-      case 'withoutManufacturer':
-        return products.filter(p => !p.manufacturerName);
-      default:
-        return products;
-    }
-  }
+  applyFilters(): void {
+    this.isLoading = true;
 
-  performFilter(): void {
-    let filteredProducts = this.productsList;
-
-    filteredProducts = this.filterBySearchString(filteredProducts, this.listFilter);
-    filteredProducts = this.filterByManufacturer(filteredProducts, this.selectedFilterOption);
-
-    this.filteredProducts = filteredProducts;
-
-    // filterBy = filterBy.toLocaleLowerCase();
-    // if (this.selectedFilterOption === 'withManufacturer') {
-    //   return this.productsList.filter((product: IProduct) =>
-    //     product.manufacturerName && product.manufacturerName.toLocaleLowerCase().includes(filterBy)
-    //   );
-    // } else if (this.selectedFilterOption === 'withoutManufacturer') {
-    //   return this.productsList.filter((product: IProduct) =>
-    //     !product.manufacturerName || (product.manufacturerName && !product.manufacturerName.toLocaleLowerCase().includes(filterBy))
-    //   );
-    // }
-    // return this.productsList.filter((product: IProduct) =>
-    //   product.name.toLocaleLowerCase().includes(filterBy)
-    // );
+    this.sub = this.productsService.getProducts(this.listFilter, this.selectedFilterOption).subscribe({
+      next: products => {
+        this.productsList = products;
+        this.isLoading = false;
+      },
+      error: err => this.errorMessage = err
+    });
   }
 
   ngOnInit(): void {
@@ -90,7 +88,7 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
     this.sub = this.productsService.getProducts().subscribe({
       next: products => {
         this.productsList = products;
-        this.performFilter();
+        // this.performFilter();
         this.isLoading = false;
       },
       error: err => this.errorMessage = err
@@ -99,15 +97,8 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
 
   onFilterChange(event: any): void {
     this.selectedFilterOption = event.value.value;
-    this.performFilter();
-    // this.sub = this.productsService.getProducts(this.selectedFilterOption).subscribe({
-    //   next: products => {
-    //     this.productsList = products;
-    //     this.onApplyFilter();
-    //   },
-    //   error: err => this.errorMessage = err
-    // });
-  }
+    // this.performFilter();
+ }
 
   onDelete(id: number): void {
     this.deleteSub = this.productsService.deleteProduct(id).subscribe({
@@ -118,7 +109,7 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
             next: products => {
               this.show = false;
               this.productsList = products;
-              this.filteredProducts = this.productsList;
+              // this.filteredProducts = this.productsList;
             }
           });
         }, 2000);

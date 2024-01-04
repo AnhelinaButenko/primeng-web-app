@@ -18,9 +18,12 @@
       optionLabel="label"
       placeholder="Filter products">
     </p-dropdown>
+    <div class="mt-3">
+    <p-button label="Apply" (click)='applyFilters()' [text]="true" [raised]="true" size="small"></p-button>
+    </div>
   </div>
 
-<p-table [value]="filteredProducts" [tableStyle]="{ 'min-width': '100%' }">
+<p-table [value]="productsList" [tableStyle]="{ 'min-width': '100%' }">
   <ng-template pTemplate="header">
     <tr>
       <th style="width: 10%;" scope="col">#</th>
