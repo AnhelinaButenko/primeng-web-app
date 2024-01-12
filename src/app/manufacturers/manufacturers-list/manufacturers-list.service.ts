@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {catchError, delay, Observable, tap, throwError} from "rxjs";
 import {IManufacturer} from "./manufacturers-list";
+import {IProduct} from "../../products/products-list/products-list";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,10 @@ export class ManufacturersListService {
   private manufacturerUrl = "https://localhost:7116/api/Manufacturer";
   constructor(private https: HttpClient) { }
 
-  getManufacturers(): Observable<IManufacturer[]> {
-    return this.https.get<IManufacturer[]>(this.manufacturerUrl)
+  getManufacturers(searchStr: string = '', filter: string = 'all'): Observable<IManufacturer[]> {
+    const params = new HttpParams().set('searchStr', searchStr).set('filter', filter);
+    return this.https.get<IManufacturer[]>(this.manufacturerUrl, {params: params})
+    // return this.https.get<IManufacturer[]>(this.manufacturerUrl)
       .pipe(
         delay(1000),
         tap(data => console.log('All: ', JSON.stringify(data))),

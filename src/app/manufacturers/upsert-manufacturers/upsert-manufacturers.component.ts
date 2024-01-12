@@ -79,8 +79,9 @@ export class UpsertManufacturersComponent implements OnInit, OnDestroy {
 
     const man: IManufacturer = {
       id: this.form?.value.id ?? 0,
+      name: this.form?.value.name ?? "",
       productsId: targetProductsId,
-      name: this.form?.value.name ?? ""
+      products: this.targetProducts
     }
 
     if (this.form?.value.id) {

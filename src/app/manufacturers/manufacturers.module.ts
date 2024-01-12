@@ -17,6 +17,8 @@ import {ManufacturersRoutingModule} from "./manufacturers-routing.module";
 import {PickListModule} from "primeng/picklist";
 import {DragDropModule} from "primeng/dragdrop";
 import {DropdownModule} from "primeng/dropdown";
+import {TagModule} from "primeng/tag";
+import {RatingModule} from "primeng/rating";
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {DropdownModule} from "primeng/dropdown";
     PickListModule,
     DragDropModule,
     DropdownModule,
+    TagModule,
+    RatingModule,
   ], providers: [
     MessageService
   ]
