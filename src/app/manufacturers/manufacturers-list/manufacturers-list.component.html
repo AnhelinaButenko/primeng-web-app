@@ -23,23 +23,16 @@
   </div>
   <div class="card">
     <p-table [value]="filteredManufacturers" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
-<!--      <ng-template pTemplate="header">-->
-<!--        <tr>-->
-<!--          <td colspan="7">-->
-<!--            <div class="p-3">-->
-<!--&lt;!&ndash;          <th style="width: 5rem"></th>&ndash;&gt;-->
-<!--&lt;!&ndash;          <th style="width: 10%;" scope="col">#</th>&ndash;&gt;-->
-<!--&lt;!&ndash;          <th scope="col">#</th>&ndash;&gt;-->
-<!--&lt;!&ndash;          <th scope="col">Name</th>&ndash;&gt;-->
-<!--              <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>-->
-<!--              <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>-->
-<!--          <th scope="col">-->
-<!--            <p-button  label="Create" (click)='onCreate()' [raised]="true" size="small"></p-button>-->
-<!--          </th>-->
-<!--            </div>-->
-<!--          </td>-->
-<!--        </tr>-->
-<!--      </ng-template>-->
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 5rem"></th>
+          <th pSortableColumn="name">Id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+          <th scope="col">
+            <p-button  label="Create" (click)='onCreate()' [raised]="true" size="small"></p-button>
+          </th>
+        </tr>
+      </ng-template>
       <ng-template pTemplate="body" let-manufacturer let-expanded="expanded">
         <tr>
           <td>
@@ -55,21 +48,12 @@
           </div>
         </tr>
       </ng-template>
-      <ng-template pTemplate="header">
-        <tr>
-          <th style="width: 5rem"></th>
-          <th pSortableColumn="name">Id <p-sortIcon field="id"></p-sortIcon></th>
-          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-          <th scope="col">
-          <p-button  label="Create" (click)='onCreate()' [raised]="true" size="small"></p-button>
-          </th>
-        </tr>
-      </ng-template>
+
       <ng-template pTemplate="rowexpansion" let-manufacturer>
         <tr>
           <td colspan="7">
             <div class="p-3">
-              <p-table [value]="products" dataKey="id">
+                            <p-table [value]="manufacturer.products" dataKey="id">
                 <ng-template pTemplate="header">
                   <tr>
                     <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
@@ -82,20 +66,20 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
-                  <tr>
-                    <td>{{ product.id }}</td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.caloriePer100g }}</td>
-                    <td>{{ product.proteinPer100g }}</td>
-                    <td>{{ product.fatPer100g }}</td>
-                    <td>{{ product.carbohydratePer100g }}</td>
-                  </tr>
+                    <tr>
+                      <td>{{ product.id }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.caloriePer100g }}</td>
+                      <td>{{ product.proteinPer100g }}</td>
+                      <td>{{ product.fatPer100g }}</td>
+                      <td>{{ product.carbohydratePer100g }}</td>
+                    </tr>
                 </ng-template>
-                <ng-template pTemplate="emptymessage">
-                  <tr>
-                    <td colspan="6">There are no order for this manufacturer yet.</td>
-                  </tr>
-                </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="6">There are no products for this manufacturer yet.</td>
+                    </tr>
+                  </ng-template>
               </p-table>
             </div>
           </td>

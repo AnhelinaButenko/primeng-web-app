@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {forkJoin, Observable, Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {ManufacturersListService} from "./manufacturers-list.service";
@@ -18,31 +18,26 @@ export class ManufacturersListComponent  implements  OnInit, OnDestroy {
   deleteSub!: Subscription;
   updateSub!: Subscription;
   show = false;
-  private _listFilter = '';
-  manufacturers!: any[];
-
-  products: IProduct[] = [];
-
   isLoading = false;
+  private _listFilter = '';
+  selectedFilterOption: string = 'all';
+  manufacturers!: any[];
+  filteredManufacturers: { productsId: number[] | undefined; name: string; id: number; products: unknown }[] = [];
+  manufacturersList: IManufacturer[] = [];
+  products: IProduct[] = [];
 
   get listFilter(): string {
     return this._listFilter;
   }
   set listFilter(value: string) {
     this._listFilter = value;
-    // this.filteredManufacturers = this.performFilter(value);
   }
 
-  filteredManufacturers: IManufacturer[] = [];
-  manufacturersList: IManufacturer[] = [];
-
   filterOptions = [
+    { label: 'All manufacturers', value: 'all' },
     { label: 'Manufacturer with products', value: 'withProducts' },
     { label: 'Manufacturer without products', value: 'withoutProducts' },
-    { label: 'All manufacturers', value: 'all' }
   ];
-
-  selectedFilterOption: string = 'all';
 
   constructor(private manufacturersService: ManufacturersListService,
               private route: ActivatedRoute,
@@ -50,24 +45,11 @@ export class ManufacturersListComponent  implements  OnInit, OnDestroy {
               private messageService: MessageService,
               private productService: ProductsService) {}
 
-  performFilter(filterBy: string): IManufacturer[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.manufacturersList.filter((manufacturer: IManufacturer) =>
-      manufacturer.name.toLocaleLowerCase().includes(filterBy));
-  }
-
   applyFilters(): void {
     this.isLoading = true;
-
     this.sub = this.manufacturersService.getManufacturers(this.listFilter, this.selectedFilterOption).subscribe({
       next: manufacturers => {
-        if (this.selectedFilterOption === 'withProducts') {
-          this.filteredManufacturers = manufacturers.filter(manufacturer => manufacturer.products && manufacturer.products.length > 0);
-        } else if (this.selectedFilterOption === 'withoutProducts') {
-          this.filteredManufacturers = manufacturers.filter(manufacturer => !manufacturer.products || manufacturer.products.length === 0);
-        } else {
-          this.filteredManufacturers = manufacturers;
-        }
+        this.filteredManufacturers = manufacturers;
         this.isLoading = false;
       },
       error: err => this.errorMessage = err
@@ -83,9 +65,7 @@ export class ManufacturersListComponent  implements  OnInit, OnDestroy {
 
     this.sub = this.manufacturersService.getManufacturers().subscribe({
       next: manufacturers => {
-        this.manufacturersList = manufacturers;
-        // this.filteredManufacturers = this.manufacturersList;
-        // this.applyFilters();
+        this.filteredManufacturers = manufacturers;
         this.isLoading = false;
       },
       error: err => this.errorMessage = err

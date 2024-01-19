@@ -9,12 +9,12 @@ import {IProduct} from "../../products/products-list/products-list";
 })
 export class ManufacturersListService {
   private manufacturerUrl = "https://localhost:7116/api/Manufacturer";
+
   constructor(private https: HttpClient) { }
 
   getManufacturers(searchStr: string = '', filter: string = 'all'): Observable<IManufacturer[]> {
     const params = new HttpParams().set('searchStr', searchStr).set('filter', filter);
     return this.https.get<IManufacturer[]>(this.manufacturerUrl, {params: params})
-    // return this.https.get<IManufacturer[]>(this.manufacturerUrl)
       .pipe(
         delay(1000),
         tap(data => console.log('All: ', JSON.stringify(data))),
