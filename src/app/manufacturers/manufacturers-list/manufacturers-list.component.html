@@ -9,29 +9,84 @@
     </span>
     </div>
   </div>
-  <p-table [value]="filteredManufacturers" [tableStyle]="{ 'min-width': '100%' }">
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="width: 10%;" scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">
-          <p-button  label="Create" (click)='onCreate()' [raised]="true" size="small"></p-button>
-        </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-manufacturer>
-      <tr>
-        <td>{{ manufacturer.id | number }}</td>
-        <td>{{ manufacturer.name }}</td>
-        <div class="ml-3 mt-2 mb-2">
-          <p-button label="Update" (click)='onUpdate(manufacturer.id)' [text]="true" [raised]="true" size="small"></p-button>
-          <div class="mt-2">
-            <p-button label="Delete" (click)='onDelete(manufacturer.id)' [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
+  <div class="mt-3 mb-3">
+    <p-dropdown
+      [options]="filterOptions"
+      [(ngModel)]="selectedFilterOption"
+      (onChange)="onFilterChange($event)"
+      optionLabel="label"
+      placeholder="Filter manufacturers">
+    </p-dropdown>
+    <div class="mt-3">
+      <p-button label="Apply" (click)='applyFilters()' [text]="true" [raised]="true" size="small"></p-button>
+    </div>
+  </div>
+  <div class="card">
+    <p-table [value]="filteredManufacturers" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 5rem"></th>
+          <th pSortableColumn="name">Id <p-sortIcon field="id"></p-sortIcon></th>
+          <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+          <th scope="col">
+            <p-button  label="Create" (click)='onCreate()' [raised]="true" size="small"></p-button>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-manufacturer let-expanded="expanded">
+        <tr>
+          <td>
+            <button type="button" pButton pRipple [pRowToggler]="manufacturer" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td>{{ manufacturer.id | number }}</td>
+          <td>{{ manufacturer.name }}</td>
+          <div class="ml-3 mt-2 mb-2">
+            <p-button label="Update" (click)='onUpdate(manufacturer.id)' [text]="true" [raised]="true" size="small"></p-button>
+            <div class="mt-2">
+              <p-button label="Delete" (click)='onDelete(manufacturer.id)' [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
+            </div>
           </div>
-        </div>
-      </tr>
-    </ng-template>
-  </p-table>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="rowexpansion" let-manufacturer>
+        <tr>
+          <td colspan="7">
+            <div class="p-3">
+                            <p-table [value]="manufacturer.products" dataKey="id">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="caloriePer100g">Calorie Per 100g <p-sortIcon field="caloriePer100g"></p-sortIcon></th>
+                    <th pSortableColumn="proteinPer100g">Protein Per 100g <p-sortIcon field="proteinPer100g"></p-sortIcon></th>
+                    <th pSortableColumn="fatPer100g">Fat Per 100g <p-sortIcon field="fatPer100g"></p-sortIcon></th>
+                    <th pSortableColumn="carbohydratePer100g">Carbohydrate Per 100g <p-sortIcon field="carbohydratePer100g"></p-sortIcon></th>
+                    <th style="width: 4rem"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                      <td>{{ product.id }}</td>
+                      <td>{{ product.name }}</td>
+                      <td>{{ product.caloriePer100g }}</td>
+                      <td>{{ product.proteinPer100g }}</td>
+                      <td>{{ product.fatPer100g }}</td>
+                      <td>{{ product.carbohydratePer100g }}</td>
+                    </tr>
+                </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="6">There are no products for this manufacturer yet.</td>
+                    </tr>
+                  </ng-template>
+              </p-table>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
 <ng-template #loading>
   <p-skeleton styleClass="mb-2" height="2rem"></p-skeleton>

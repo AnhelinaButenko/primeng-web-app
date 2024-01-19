@@ -23,6 +23,16 @@ export class ProductsService {
       );
   }
 
+  // getProductsByManufacturer(manufacturerId: number): Observable<IProduct[]> {
+  //   const params = new HttpParams().set('manufacturerId', manufacturerId.toString());
+  //   return this.https.get<IProduct[]>(`${this.productUrl}/byManufacturer`, { params })
+  //     .pipe(
+  //       delay(1000),
+  //       tap(data => console.log(`Products for Manufacturer ${manufacturerId}: `, JSON.stringify(data))),
+  //       catchError(this.handleError)
+  //     );
+  // }
+
   createProducts(product: IProduct): Observable<IProduct> {
     return this.https.post<IProduct>(this.productUrl, product);
   }
