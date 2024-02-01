@@ -119,6 +119,13 @@ export class LayoutComponent implements OnInit{
           }
         ]
       },
+      {
+        label: 'Category',
+        icon: 'pi pi-shopping-bag',
+        command: async () => {
+          await this.router.navigate(['categories/list']);
+        }
+      },
     ];
   }
 }
