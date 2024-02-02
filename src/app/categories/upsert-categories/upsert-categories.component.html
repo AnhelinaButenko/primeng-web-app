@@ -1,0 +1,57 @@
+<div class="mt-3 pl-3">
+  <p-messages></p-messages>
+  <div *ngIf="form">
+    <form [formGroup]="form"
+          (ngSubmit)="onSubmit()">
+      <div class="field grid">
+        <label for="name" class="col-fixed" style="width:310px">Input name:</label>
+        <div class="col">
+          <input id="name" type="text" formControlName="name"
+                 class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+      </div>
+      <div class="flex align-items-center flex-wrap">
+        <p-button label="Submit" type="submit" [disabled]="!form.valid" [raised]="true" size="small"></p-button>
+        <div class="ml-2">
+          <div *ngIf="category?.id">
+            <p-button  label="Delete" (click)='delete()' [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p-pickList
+          [source]="sourceProducts"
+          [target]="targetProducts"
+          sourceHeader="Available"
+          targetHeader="Selected"
+          [dragdrop]="true"
+          [responsive]="true"
+          [sourceStyle]="{ height: '30rem' }"
+          [targetStyle]="{ height: '30rem' }"
+          filterBy="name"
+          sourceFilterPlaceholder="Search by name"
+          targetFilterPlaceholder="Search by name"
+          breakpoint="1400px">
+          <ng-template let-product pTemplate="productsId" >
+            <div class="flex flex-wrap p-2 align-items-center gap-3">
+              <div class="flex-1 flex flex-column gap-2">
+                <span class="font-bold">{{ product.name }}</span>
+                <div class="flex align-products-center gap-2">Calory:
+                  <span>{{ product.caloriePer100g }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-pickList>
+      </div>
+    </form>
+    <div class="mt-3" style="color:gray" >
+      {{ form.value | json }}
+      valid :{{ form.valid }}
+
+      {{ targetProducts | json}}
+    </div>
+  </div>
+</div>
+
