@@ -96,11 +96,11 @@ export class CategoriesListComponent  implements  OnInit, OnDestroy {
   }
 
   onCreate(): void {
-    this.router.navigate(['categories/category-create']);
+    this.router.navigate(['categories/categories-create']);
   }
 
   onUpdate(id: number): void {
-    this.router.navigate([`categories/category-update/${id}`]);
+    this.router.navigate([`categories/categories-update/${id}`]);
   }
 
   ngOnDestroy(): void {
