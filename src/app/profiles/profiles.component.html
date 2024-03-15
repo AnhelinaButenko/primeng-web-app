@@ -19,11 +19,19 @@
      </div>
     </div>
 
+      <p>Calculate recommended calorie:</p>
     <div class="formgroup-inline align-items-center">
-      <p style="color: hsl(0, 0%, 70%);">Lost: 10 kg</p>
-      <p class="ml-6" style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
-    <p-button class="ml-6" label="Submit" icon="pi pi-check" size="small"></p-button>
+      <p-button [outlined]="true" size="small">
+        <i class="pi pi-check" ></i>
+        <span class="ml-1 font-bold">Submit</span>
+      </p-button>
+      <p-button class="ml-3" label="Calculate"  icon="pi pi-calculator" size="small"></p-button>
     </div>
+
+      <div class="formgroup-inline align-items-center">
+        <p style="color: hsl(0, 0%, 70%);">Lost: 10 kg</p>
+        <p class="ml-6" style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
+      </div>
 
     <p class="font-semibold text-lg mt-6">Goals:</p>
 
@@ -37,44 +45,6 @@
 
   </div>
 </div>
-
-<!--<div class="p-card">-->
-<!--      <div class="p-card-body flex pi-align-center">-->
-<!--          <div class="p-col-12">-->
-<!--            <img alt="User Photo" class="w-7 h-7" src="assets/images/avatar.jpg"/>-->
-<!--          </div>-->
-<!--          <div class="p-col-12">-->
-<!--&lt;!&ndash;            <h3>Name{{ userProfile.name }}</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;            <h3>Email{{ userProfile.name }}</h3>&ndash;&gt;-->
-<!--            <h3>Name</h3>-->
-<!--            <h3>Email</h3>-->
-<!--&lt;!&ndash;            <p><strong>Current weight:</strong> {{ userProfile.currentWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Starting weight:</strong> {{ userProfile.startWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Desired weight:</strong> {{ userProfile.desiredWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Lost:</strong> {{ remainingWeight }} kg</p>&ndash;&gt;-->
-<!--            <p><strong>Current weight:</strong> kg</p>-->
-<!--            <p><strong>Starting weight:</strong> kg</p>-->
-<!--            <p><strong>Desired weight:</strong> kg</p>-->
-<!--            <p>Lost: kg</p>-->
-
-<!--            <h3><strong>Goals:</strong></h3>-->
-<!--            <div class="flex justify-content-between flex-wrap">-->
-<!--            <p><strong>Calories:</strong></p>-->
-<!--            <p><strong>Protein:</strong> g</p>-->
-<!--            <p><strong>Fates:</strong> g</p>-->
-<!--            <p><strong>Carbohydrates:</strong> g</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--&lt;!&ndash;          <div class="p-col-12">&ndash;&gt;-->
-<!--&lt;!&ndash;            <p-editable [value]="userProfile.currentWeight" (onSave)="updateWeight($event)">&ndash;&gt;-->
-<!--&lt;!&ndash;              <ng-template let-value="value" let-onSave="onSave">&ndash;&gt;-->
-<!--&lt;!&ndash;                {{ value }}&ndash;&gt;-->
-<!--&lt;!&ndash;                <button pButton type="button" icon="pi pi-check" class="p-button-success" (click)="onSave(value)"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ng-template>&ndash;&gt;-->
-<!--&lt;!&ndash;            </p-editable>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--</div>-->
 
 
 <router-outlet></router-outlet>
