@@ -4,13 +4,13 @@ interface IDailyFoodDairy {
 export interface IProfile {
   id: number;
   userName: string;
-  email: string;
+  email?: string;
   currentWeight: number;
   desiredWeight: number;
   height: number;
   age: number;
-  gender: string;
-  activityLevel: string;
-  dailyFoodDairyId: number[] | undefined;
-  dailyFoodDairy: IDailyFoodDairy[] | undefined;
+  gender: number;
+  activityLevel: number;
+  dailyFoodDairyId?: number[] | undefined;
+  dailyFoodDairy?: IDailyFoodDairy[] | undefined;
 }

@@ -1,37 +1,37 @@
-<div class="formgrid grid align-items-center mt-2">
+<div class="formgrid grid align-items-center mt-2" *ngIf="user">
   <div class="field col-12 md:col-6">
     <img alt="User Photo" class="shadow-3 w-9 h-7" src="assets/images/avatar.jpg"/>
   </div>
 
   <div class="field col-12 md:col-6">
-    <p class="font-bold text-xl">{{ user?.userName }}</p>
-    <p style="color: hsl(0, 0%, 70%);">{{user?.email}}</p>
+    <p class="font-bold text-xl">{{ user.userName}}</p>
+    <p style="color: hsl(0, 0%, 70%);">{{user.email}}</p>
 
     <div class="mt-6">
       <div class="formgroup-inline flex-column">
         <div class="field">
-          <label for="currentWeight">{{user?.currentWeight}} kg</label>
+          <label for="currentWeight">{{user.currentWeight | number }} kg</label>
           <input id="currentWeight" type="number" class="text-base text-color surface-overlay p-2 w-7 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" placeholder="Current weight">
         </div>
         <div class="field">
-          <label for="desiredWeight">{{user?.desiredWeight}} kg</label>
+          <label for="desiredWeight">{{user.desiredWeight| number }} kg</label>
           <input id="desiredWeight" type="number" class="text-base text-color surface-overlay p-2 w-7 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" placeholder="Desired weight">
         </div>
         <div class="field">
-          <label for="height">{{user?.height}} cm</label>
+          <label for="height">{{user.height| number }} cm</label>
           <input id="height" type="number" class="text-base text-color surface-overlay p-2 w-7 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" placeholder="Height">
         </div>
         <div class="field">
-          <label for="age">{{user?.age}} years</label>
+          <label for="age">{{user.age| number }} years</label>
           <input id="age" type="number" class="text-base text-color surface-overlay p-2 w-7 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" placeholder="Age">
         </div>
-        <div class="field" *ngIf="user">
+        <div class="field">
           <label>{{user.gender}}</label>
-          <p-dropdown [options]="genderOptions" [(ngModel)]="user.gender" placeholder="Select a gender" optionLabel="label"></p-dropdown>
+          <p-dropdown [options]="genderOptions" [(ngModel)]="selectedGenderOption" placeholder="Select a gender"></p-dropdown>
         </div>
-        <div class="field" *ngIf="user">
+        <div class="field">
           <label>{{user.activityLevel}}</label>
-          <p-dropdown [options]="activityLevelOptions" [(ngModel)]="user.activityLevel" placeholder="Select an activity level" optionLabel="label"></p-dropdown>
+          <p-dropdown [options]="activityLevels" [(ngModel)]="selectedActivityLevel" placeholder="Select an activity level"></p-dropdown>
         </div>
         <div class="field">
         <p>Calculate recommended calorie:</p>
