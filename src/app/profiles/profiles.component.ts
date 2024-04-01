@@ -53,49 +53,69 @@ export class ProfilesComponent implements OnInit {
         }
       );
     }
+    //     console.log(JSON.stringify(this.form?.value));
+//
+//     const profile: IProfile = {
+//       id: this.form?.value.id ?? 0,
+//       userName: this.form?.value.userName ?? "",
+//       email: this.form?.value.email ?? "",
+//       currentWeight: this.form?.value.currentWeight ?? 0,
+//       desiredWeight: this.form?.value.desiredWeight ?? 0,
+//       height: this.form?.value.height ?? 0,
+//       age: this.form?.value.age ?? 0,
+//       gender: this.form?.value.gender ?? "",
+//       activityLevel: this.form?.value.activityLevel ?? "",
+//     }
+//
+//     if (this.form?.value.id) {
+//       this.updateSub = this.profileService.updateProfile(this.form?.value.id, profile).subscribe({
+//         next: profile => {
+//           console.log(profile);
+//           this.messageService.add({severity:'success', summary:'Service Message', detail:'This data is updated'});
+//         }
+//       })
+//     }
   }
-
-  // onSubmit(): void {
-  //   if (this.user) {
-  //     this.profileService.updateProfile(this.user.id, this.user).subscribe(
-  //       (updatedProfile: IProfile) => {
-  //         console.log('Profile updated successfully:', updatedProfile);
-  //             const user: IProfile = {
-  //               id: this.form?.value.id ?? 0,
-  //               userName: this.form?.value.userName ?? "",
-  //               email: this.form?.value.email ?? "",
-  //               currentWeight: this.form?.value.currentWeight ?? 0,
-  //               desiredWeight: this.form?.value.desiredWeight ?? 0,
-  //               height: this.form?.value.height ?? 0,
-  //               age: this.form?.value.age ?? 0,
-  //               gender: this.form?.value.gender ?? "",
-  //               activityLevel: this.form?.value.activityLevel ?? "",
-  //             }
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         if (error.status === 400 && error.error && error.error.errors) {
-  //           const validationErrors = error.error.errors;
-  //           let errorMessage = 'Validation errors occurred:';
-  //           if (validationErrors.userDto) {
-  //             errorMessage += `\n${validationErrors.userDto[0]}`;
-  //           }
-  //           if (validationErrors['$.activityLevel']) {
-  //             errorMessage += `\n${validationErrors['$.activityLevel'][0]}`;
-  //           }
-  //           alert(errorMessage);
-  //         } else {
-  //           this.handleError(error);
-  //         }
-  //       }
-  //     );
-  //   }
-  // }
 
   ngOnInit(): void {
     this.profileService.getById(1).subscribe((profile: IProfile) => {
       this.user = profile;
     });
+    //     if(id) {
+//       this.getByIdSub = this.profileService.getById(id).subscribe({
+//         next: (profile: IProfile) => {
+//           this.profile = profile;
+//
+//           this.form = this.fb.group({
+//             id: [profile.id],
+//             userName: [profile.userName, [Validators.required]],
+//             email: [profile.email, [Validators.required]],
+//             currentWeight: [profile.currentWeight, [Validators.required]],
+//             desiredWeight: [profile.desiredWeight, [Validators.required]],
+//             height: [profile.height, [Validators.required]],
+//             age: [profile.age, [Validators.required]],
+//             gender: [profile.gender, [Validators.required]],
+//             activityLevel: [profile.activityLevel, [Validators.required]],
+//           });
+//         }
+//       });
+//     }
+//     else {
+//       this.form = this.fb.group({
+//         id: [0],
+//         userName: [undefined, [Validators.required]],
+//         email: [undefined, [Validators.required]],
+//         currentWeight: [undefined, [Validators.required]],
+//         desiredWeight: [undefined, [Validators.required]],
+//         height: [undefined, [Validators.required]],
+//         age: [undefined, [Validators.required]],
+//         gender: [undefined, [Validators.required]],
+//         activityLevel: [undefined, [Validators.required]],
+//       });
+//     }
   }
+
+  protected readonly undefined = undefined;
 }
 
 // export class ProfilesComponent implements OnInit, OnDestroy {
