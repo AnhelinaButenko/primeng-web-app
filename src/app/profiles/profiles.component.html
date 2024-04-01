@@ -1,5 +1,5 @@
-<!--<div *ngIf="form">-->
-<!--  <form [formGroup]="form">-->
+<div *ngIf="form">
+  <form [formGroup]="form">
 <div class="formgrid grid mt-4 ml-2" *ngIf="user">
   <div class="field col-12 md:col-6">
     <img alt="User Photo" class="shadow-3 w-9 h-9" src="assets/images/avatar.jpg"/>
@@ -35,11 +35,11 @@
         </div>
         <div class="field">
           <label>Select a gender: </label>
-          <p-dropdown [options]="genderOptions" [(ngModel)]="selectedGenderOption" placeholder="{{user.gender}}"></p-dropdown>
+          <p-dropdown [options]="genderOptions" formControlName="gender"></p-dropdown>
         </div>
         <div class="field">
           <label>Select an activity level: </label>
-          <p-dropdown [options]="activityLevels" [(ngModel)]="selectedActivityLevel" placeholder="{{user.activityLevel}}"></p-dropdown>
+          <p-dropdown [options]="activityLevels" formControlName="activityLevel"></p-dropdown>
         </div>
         <div class="field">
           <label for="button" class="font-medium" >Calculate recommended calorie </label>
@@ -51,6 +51,7 @@
         <p style="color: hsl(0, 0%, 70%);" class="p-mr-2">Lost: 10 kg</p>
         <p class="ml-4" style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
       </div>
+      {{form?.value | json}}
   </div>
 
     <p class="font-semibold text-lg mt-4">Goals:</p>
@@ -63,7 +64,7 @@
   </div>
 </div>
 
-<!--  </form>-->
-<!--</div>-->
+  </form>
+</div>
 
 <router-outlet></router-outlet>
