@@ -76,17 +76,14 @@ export class ProfilesComponent implements OnInit {
             this.form = this.fb.group({
             id: [profile.id],
             userName: [profile.userName, [Validators.required, Validators.minLength(2), Validators.max(50)]],
-            email: [profile.email, [Validators.required, Validators.email]],
+            email: [profile.email, [Validators.email, Validators.max(150)]],
             currentWeight: [profile.currentWeight, [Validators.required, Validators.minLength(1), Validators.max(300)]],
             desiredWeight: [profile.desiredWeight, [Validators.required, Validators.minLength(1), Validators.max(300)]],
-            height: [profile.height, [Validators.required, Validators.minLength(50), Validators.max(50)]],
+            height: [profile.height, [Validators.required, Validators.minLength(50), Validators.max(250)]],
             age: [profile.age, [Validators.required, Validators.minLength(1), Validators.max(150)]],
             gender: [profile.gender, [Validators.required]],
             activityLevel: [profile.activityLevel, [Validators.required]],
           });
-
-      // this.selectedGenderOption = profile.gender as number;
-      // this.selectedActivityLevel = profile.activityLevel as number;
 
           if(!this.user?.id) {
             this.form = this.fb.group({
