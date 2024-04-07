@@ -12,6 +12,7 @@ import {ProfilesService} from "./profiles.service";
 export class ProfilesComponent implements OnInit {
   user: IProfile | undefined;
   form: FormGroup | undefined = undefined;
+
   constructor(private profileService: ProfilesService,
               private fb: FormBuilder) { }
 
@@ -32,14 +33,51 @@ export class ProfilesComponent implements OnInit {
   selectedGenderOption: number = 1;
 
   recommendedCalories: number = 0;
+  recommendedProtein: number = 0;
+  recommendedFat: number = 0;
+  recommendedCarbs: number = 0;
 
-  calculateRecommendedCalories(): void {
+  calculateRecommendedNutrition(): void {
+    if (!this.form){
+      return;
+    }
 
+    const currentWeight = this.form.value.currentWeight;
+    const desiredWeight = this.form.value.desiredWeight;
+    const height = this.form.value.height;
+    const age = this.form.value.age;
+    const gender = this.form.value.gender;
+    const activityLevel = this.form.value.activityLevel;
+
+    let bmr: number;
+    if (gender === 1) {
+      bmr = 10 * currentWeight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * currentWeight + 6.25 * height - 5 * age - 161;
+    }
+
+    const activityLevels = [1.2, 1.375, 1.55, 1.725, 1.9];
+    const activityFactor = activityLevels[activityLevel - 1];
+    const maintenanceCalories = bmr * activityFactor;
+
+    const calorieDeficit = currentWeight > desiredWeight ? 500 : -500;
+    const targetCalories = maintenanceCalories + calorieDeficit;
+
+    const proteinGrams = desiredWeight * 2.2;
+    const fatCalories = targetCalories * 0.3;
+    const carbCalories = targetCalories - (proteinGrams * 4 + fatCalories);
+
+    this.recommendedCalories = Number(targetCalories.toFixed(1));
+    this.recommendedProtein = Number(proteinGrams.toFixed(1));
+    this.recommendedFat = Number((fatCalories / 9).toFixed(1));
+    this.recommendedCarbs = Number((carbCalories / 4).toFixed(1));
   }
 
   onSubmit(): void {
 
     console.log(JSON.stringify(this.form?.value));
+
+    this.calculateRecommendedNutrition();
 
     const profile: IProfile = {
       id: this.form?.value.id ?? 0,

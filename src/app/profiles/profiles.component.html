@@ -19,19 +19,19 @@
     <div class="formgroup-inline flex-column">
         <div class="field">
           <label for="currentWeight">Current weight: </label>
-          <input id="currentWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="currentWeight" placeholder="{{user.currentWeight | number }} kg">
+          <input id="currentWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="currentWeight" placeholder="{{user.currentWeight | number }} kg" min="1">
         </div>
         <div class="field">
           <label for="desiredWeight">Desired weight: </label>
-          <input id="desiredWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="desiredWeight" placeholder="{{user.desiredWeight| number }} kg">
+          <input id="desiredWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="desiredWeight" placeholder="{{user.desiredWeight| number }} kg" min="1">
         </div>
         <div class="field">
           <label for="height">Height: </label>
-          <input id="height" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="height" placeholder="{{user.height| number }} cm">
+          <input id="height" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="height" placeholder="{{user.height| number }} cm" min="1">
         </div>
         <div class="field">
           <label for="age">Age:</label>
-          <input id="age" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="age" placeholder="{{user.age| number }} years">
+          <input id="age" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="age" placeholder="{{user.age| number }} years" min="1">
         </div>
         <div class="field">
           <label>Select a gender: </label>
@@ -48,18 +48,17 @@
       </div>
 
       <div class="flex mb-4">
-        <p style="color: hsl(0, 0%, 70%);" class="p-mr-2">Lost: 10 kg</p>
-        <p class="ml-4" style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
+        <p style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
       </div>
       {{form?.value | json}}
   </div>
 
     <p class="font-semibold text-lg mt-4">Goals:</p>
     <div class="flex mt-2">
-      <p><strong>Calories:</strong> 1700</p>
-      <p class="ml-6"><strong>Protein:</strong> 110 g</p>
-      <p class="ml-6"><strong>Fates:</strong> 60 g</p>
-      <p class="ml-6"><strong>Carbohydrates:</strong> 190 g</p>
+      <p><strong>Calories: </strong>{{recommendedCalories}}</p>
+      <p class="ml-6"><strong>Protein: </strong>{{recommendedProtein}} g</p>
+      <p class="ml-6"><strong>Fates: </strong> {{recommendedFat}} g</p>
+      <p class="ml-6"><strong>Carbohydrates: </strong> {{recommendedCarbs}} g</p>
     </div>
   </div>
 </div>
