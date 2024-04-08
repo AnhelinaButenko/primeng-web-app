@@ -16,108 +16,70 @@ export class LayoutComponent implements OnInit{
   ngOnInit() {
     this.items = [
       {
+        label: 'Profile',
+        icon: 'pi pi-fw pi-user',
+        command: async () => {
+          await this.router.navigate(['profile']);
+        }
+      },
+      {
         label: 'Products',
         icon: 'pi pi-shopping-bag',
         command: async () => {
           await this.router.navigate(['products/list']);
         },
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-plus',
-          },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-trash'
-          },
-          {
-            separator: true
-          },
-          {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-        items: [
-          {
-            label: 'Save',
-            icon: 'pi pi-fw pi-calendar-plus'
-          },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-calendar-minus'
-          }
-        ]
-        },
-          {
-            label: 'Search',
-            icon: 'pi pi-fw pi-users',
-            items: [
-              {
-                label: 'Filter',
-                icon: 'pi pi-fw pi-filter',
-              },
-              {
-                icon: 'pi pi-fw pi-bars',
-                label: 'List'
-              }
-            ]
-          },
-          {
-            label: 'Export',
-            icon: 'pi pi-fw pi-external-link'
-          }
-        ]
+        // items: [
+        //   {
+        //     label: 'New',
+        //     icon: 'pi pi-fw pi-plus',
+        //   },
+        //   {
+        //     label: 'Delete',
+        //     icon: 'pi pi-fw pi-trash'
+        //   },
+        //   {
+        //     separator: true
+        //   },
+        //   {
+        //     label: 'Edit',
+        //     icon: 'pi pi-fw pi-pencil',
+        // items: [
+        //   {
+        //     label: 'Save',
+        //     icon: 'pi pi-fw pi-calendar-plus'
+        //   },
+        //   {
+        //     label: 'Delete',
+        //     icon: 'pi pi-fw pi-calendar-minus'
+        //   }
+        // ]
+        // },
+        //   {
+        //     label: 'Search',
+        //     icon: 'pi pi-fw pi-users',
+        //     items: [
+        //       {
+        //         label: 'Filter',
+        //         icon: 'pi pi-fw pi-filter',
+        //       },
+        //       {
+        //         icon: 'pi pi-fw pi-bars',
+        //         label: 'List'
+        //       }
+        //     ]
+        //   },
+        //   {
+        //     label: 'Export',
+        //     icon: 'pi pi-fw pi-external-link'
+        //   }
+        // ]
       },
       {
         label: 'Manufacturers',
-        icon: 'pi pi-fw pi-user',
+        icon: 'pi pi-fw pi-users',
         command: async () => {
           await this.router.navigate(['manufacturers/list']);
         },
-        items: [
-          {
-            label: 'New',
-            icon: 'pi pi-fw pi-user-plus'
-          },
-          {
-            label: 'Delete',
-            icon: 'pi pi-fw pi-user-minus'
-          },
-          {
-            separator: true
-          },
-          {
-            label: 'Edit',
-            icon: 'pi pi-fw pi-pencil',
-            items: [
-              {
-                label: 'Save',
-                icon: 'pi pi-fw pi-calendar-plus'
-              },
-              {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-calendar-minus'
-              }
-            ]
-          },
-          {
-            label: 'Search',
-            icon: 'pi pi-fw pi-users',
-            items: [
-              {
-                label: 'Filter',
-                icon: 'pi pi-fw pi-filter',
-              },
-              {
-                icon: 'pi pi-fw pi-bars',
-                label: 'List'
-              }
-            ]
-          },
-          {
-            label: 'Export',
-            icon: 'pi pi-fw pi-external-link'
-          }
-        ]
       },
       {
         label: 'Category',
