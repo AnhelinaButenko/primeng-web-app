@@ -13,4 +13,9 @@ export interface IProfile {
   activityLevel: number;
   dailyFoodDairyId?: number[] | undefined;
   dailyFoodDairy?: IDailyFoodDairy[] | undefined;
+
+  recommendedCalories?: number;
+  recommendedProtein?: number;
+  recommendedFat?: number;
+  recommendedCarbs?: number;
 }

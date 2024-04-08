@@ -89,6 +89,10 @@ export class ProfilesComponent implements OnInit {
       age: this.form?.value.age ?? 0,
       gender: this.form?.value.gender ?? "",
       activityLevel: this.form?.value.activityLevel ?? "",
+      recommendedCalories: this.recommendedCalories,
+      recommendedProtein: this.recommendedProtein,
+      recommendedFat: this.recommendedFat,
+      recommendedCarbs: this.recommendedCarbs,
     }
 
     if (this.user) {
@@ -121,6 +125,10 @@ export class ProfilesComponent implements OnInit {
             age: [profile.age, [Validators.required, Validators.minLength(1), Validators.max(150)]],
             gender: [profile.gender, [Validators.required]],
             activityLevel: [profile.activityLevel, [Validators.required]],
+            recommendedCalories: [profile.recommendedCalories],
+            recommendedProtein: [profile.recommendedProtein],
+            recommendedFat: [profile.recommendedFat],
+            recommendedCarbs: [profile.recommendedCarbs],
           });
 
           if(!this.user?.id) {
@@ -134,6 +142,10 @@ export class ProfilesComponent implements OnInit {
             age: [undefined, [Validators.required, Validators.minLength(1), Validators.max(150)]],
             gender: [undefined, [Validators.required]],
             activityLevel: [undefined, [Validators.required]],
+            recommendedCalories: [undefined],
+            recommendedProtein: [undefined],
+            recommendedFat: [undefined],
+            recommendedCarbs: [undefined],
       });
     }
     });
