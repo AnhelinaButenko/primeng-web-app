@@ -35,7 +35,7 @@ export class ProfilesComponent implements OnInit {
   recommendedCalories: number = 0;
   recommendedProtein: number = 0;
   recommendedFat: number = 0;
-  recommendedCarbs: number = 0
+  recommendedCarbs: number = 0;
 
   calculateRecommendedNutrition(): void {
     if (!this.form){
