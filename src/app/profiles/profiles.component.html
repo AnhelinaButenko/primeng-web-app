@@ -1,80 +1,66 @@
-<div class="formgrid grid align-items-center mt-2">
+<div *ngIf="form">
+  <form [formGroup]="form">
+<div class="formgrid grid mt-4 ml-2" *ngIf="user">
   <div class="field col-12 md:col-6">
-    <img alt="User Photo" class="shadow-3 w-9 h-7" src="assets/images/avatar.jpg"/>
+    <img alt="User Photo" class="shadow-3 w-9 h-9" src="assets/images/avatar.jpg"/>
   </div>
 
   <div class="field col-12 md:col-6">
-    <p class="font-bold text-xl">Stephanie</p>
-    <p style="color: hsl(0, 0%, 70%);">afehgopk@gmail.com</p>
-
-    <div class="mt-6">
-    <div class="formgroup-inline align-items-baseline">
-      <label for="currentWeight"><strong>Current weight:</strong> 70 kg</label>
-      <div class="field col-12 md:col-1">
-      <input id="currentWeight" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    <div class="formgroup-inline flex-column">
+      <div class="field">
+        <label for="userName">Name: </label>
+        <input id="userName" type="text" class="text-base text-color surface-overlay p-2 w-8 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="userName" placeholder="{{user.userName}}">
+      </div>
+      <div class="field">
+        <label for="email">Email: </label>
+        <input id="email" type="text" class="text-base text-color surface-overlay p-2 w-8 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="email" placeholder="{{user.email}}">
+      </div>
     </div>
-      <label for="desiredWeight"><strong>Desired weight:</strong> 60 kg</label>
-     <div class="field col-12 md:col-1">
-      <input id="desiredWeight" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-     </div>
-    </div>
+    <div class="formgroup-inline flex-column">
+        <div class="field">
+          <label for="currentWeight">Current weight: </label>
+          <input id="currentWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="currentWeight" placeholder="{{user.currentWeight | number }} kg" min="1">
+        </div>
+        <div class="field">
+          <label for="desiredWeight">Desired weight: </label>
+          <input id="desiredWeight" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="desiredWeight" placeholder="{{user.desiredWeight| number }} kg" min="1">
+        </div>
+        <div class="field">
+          <label for="height">Height: </label>
+          <input id="height" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="height" placeholder="{{user.height| number }} cm" min="1">
+        </div>
+        <div class="field">
+          <label for="age">Age:</label>
+          <input id="age" type="number" class="text-base text-color surface-overlay p-2 w-5 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary" formControlName="age" placeholder="{{user.age| number }} years" min="1">
+        </div>
+        <div class="field">
+          <label>Select a gender: </label>
+          <p-dropdown [options]="genderOptions" formControlName="gender"></p-dropdown>
+        </div>
+        <div class="field">
+          <label>Select an activity level: </label>
+          <p-dropdown [options]="activityLevels" formControlName="activityLevel"></p-dropdown>
+        </div>
+        <div class="field">
+          <label for="button" class="font-medium" >Calculate recommended calorie </label>
+          <button id="button" type="button" (click)="onSubmit()" class="bg-primary border-primary-500 px-3 py-2 text-base border-1 border-solid border-round cursor-pointer transition-all transition-duration-200 hover:bg-primary-600 hover:border-primary-600 active:bg-primary-700 active:border-primary-700 mr-3">Submit
+          <span class="pi pi-check pl-1 w-1rem h-1rem"></span></button>
+      </div>
 
-    <div class="formgroup-inline align-items-center">
-      <p style="color: hsl(0, 0%, 70%);">Lost: 10 kg</p>
-      <p class="ml-6" style="color: hsl(0, 0%, 70%);">Starting weight: 72 kg</p>
-    <p-button class="ml-6" label="Submit" icon="pi pi-check" size="small"></p-button>
-    </div>
-
-    <p class="font-semibold text-lg mt-6">Goals:</p>
-
-    <div class="flex">
-      <p><strong>Calories:</strong> 1700</p>
-      <p class="ml-6"><strong>Protein:</strong> 110 g</p>
-      <p class="ml-6"><strong>Fates:</strong> 60 g</p>
-      <p class="ml-6"><strong>Carbohydrates:</strong> 190 g</p>
-    </div>
+      {{form?.value | json}}
   </div>
 
+    <p class="font-semibold text-lg mt-4">Goals:</p>
+    <div class="flex mt-2">
+      <p><strong>Calories: </strong>{{recommendedCalories}}</p>
+      <p class="ml-6"><strong>Protein: </strong>{{recommendedProtein}} g</p>
+      <p class="ml-6"><strong>Fates: </strong> {{recommendedFat}} g</p>
+      <p class="ml-6"><strong>Carbohydrates: </strong> {{recommendedCarbs}} g</p>
+    </div>
   </div>
 </div>
 
-<!--<div class="p-card">-->
-<!--      <div class="p-card-body flex pi-align-center">-->
-<!--          <div class="p-col-12">-->
-<!--            <img alt="User Photo" class="w-7 h-7" src="assets/images/avatar.jpg"/>-->
-<!--          </div>-->
-<!--          <div class="p-col-12">-->
-<!--&lt;!&ndash;            <h3>Name{{ userProfile.name }}</h3>&ndash;&gt;-->
-<!--&lt;!&ndash;            <h3>Email{{ userProfile.name }}</h3>&ndash;&gt;-->
-<!--            <h3>Name</h3>-->
-<!--            <h3>Email</h3>-->
-<!--&lt;!&ndash;            <p><strong>Current weight:</strong> {{ userProfile.currentWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Starting weight:</strong> {{ userProfile.startWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Desired weight:</strong> {{ userProfile.desiredWeight }} kg</p>&ndash;&gt;-->
-<!--&lt;!&ndash;            <p><strong>Lost:</strong> {{ remainingWeight }} kg</p>&ndash;&gt;-->
-<!--            <p><strong>Current weight:</strong> kg</p>-->
-<!--            <p><strong>Starting weight:</strong> kg</p>-->
-<!--            <p><strong>Desired weight:</strong> kg</p>-->
-<!--            <p>Lost: kg</p>-->
-
-<!--            <h3><strong>Goals:</strong></h3>-->
-<!--            <div class="flex justify-content-between flex-wrap">-->
-<!--            <p><strong>Calories:</strong></p>-->
-<!--            <p><strong>Protein:</strong> g</p>-->
-<!--            <p><strong>Fates:</strong> g</p>-->
-<!--            <p><strong>Carbohydrates:</strong> g</p>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--&lt;!&ndash;          <div class="p-col-12">&ndash;&gt;-->
-<!--&lt;!&ndash;            <p-editable [value]="userProfile.currentWeight" (onSave)="updateWeight($event)">&ndash;&gt;-->
-<!--&lt;!&ndash;              <ng-template let-value="value" let-onSave="onSave">&ndash;&gt;-->
-<!--&lt;!&ndash;                {{ value }}&ndash;&gt;-->
-<!--&lt;!&ndash;                <button pButton type="button" icon="pi pi-check" class="p-button-success" (click)="onSave(value)"></button>&ndash;&gt;-->
-<!--&lt;!&ndash;              </ng-template>&ndash;&gt;-->
-<!--&lt;!&ndash;            </p-editable>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-<!--</div>-->
-
+  </form>
+</div>
 
 <router-outlet></router-outlet>
