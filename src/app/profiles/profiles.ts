@@ -1,6 +1,3 @@
-interface IDailyFoodDairy {
-}
-
 export interface IProfile {
   id: number;
   userName: string;
@@ -11,9 +8,6 @@ export interface IProfile {
   age: number;
   gender: number;
   activityLevel: number;
-  dailyFoodDairyId?: number[] | undefined;
-  dailyFoodDairy?: IDailyFoodDairy[] | undefined;
-
   recommendedCalories?: number;
   recommendedProtein?: number;
   recommendedFat?: number;

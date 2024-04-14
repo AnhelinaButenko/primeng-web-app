@@ -1,0 +1,65 @@
+<p><strong>Calories left: </strong>{{ caloriesLeft }}</p>
+<p><strong>Calories consumed: </strong>{{ caloriesConsumed }}</p>
+
+<p-accordion>
+  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
+    <ng-template pTemplate="header">
+      {{ dailyMeal.dailyMeals?.[0]?.mealName }}
+    </ng-template>
+    <table>
+      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
+        <ng-container *ngIf="meal.mealName === 'Breakfast'">
+          <tr *ngFor="let product of meal.productConsumptions">
+            <td>{{ product.productName }}</td>
+            <p-divider></p-divider>
+            <td>{{ product.gramsConsumed }} grams </td>
+            <td> {{ product.caloriesConsumed }} calories</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </table>
+  </p-accordionTab>
+
+  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
+    <ng-template pTemplate="header">
+      {{ dailyMeal.dailyMeals?.[1]?.mealName }}
+    </ng-template>
+    <table>
+      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
+        <ng-container *ngIf="meal.mealName === 'Lunch'">
+          <tr *ngFor="let product of meal.productConsumptions">
+            <td>{{ product.productName }}</td>
+            <p-divider></p-divider>
+            <td>{{ product.gramsConsumed }} grams </td>
+            <td> {{ product.caloriesConsumed }} calories</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </table>
+  </p-accordionTab>
+
+  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
+    <ng-template pTemplate="header">
+      {{ dailyMeal.dailyMeals?.[2]?.mealName }}
+    </ng-template>
+    <table>
+      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
+        <ng-container *ngIf="meal.mealName === 'Dinner'">
+          <tr *ngFor="let product of meal.productConsumptions">
+            <td>{{ product.productName }}</td>
+            <p-divider></p-divider>
+            <td>{{ product.gramsConsumed }} grams </td>
+            <td> {{ product.caloriesConsumed }} calories</td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </table>
+  </p-accordionTab>
+</p-accordion>
+
+<h3>Summary:</h3>
+<p><strong>Proteins: </strong>{{ proteinsConsumed }}g ({{ proteinsPercentage | number:'1.1-1'}}%)</p>
+<p><strong>Fats: </strong>{{ fatsConsumed }}g ({{ fatsPercentage | number:'1.1-1'}}%)</p>
+<p><strong>Carbohydrates: </strong>{{ carbohydratesConsumed }}g ({{ carbohydratesPercentage | number:'1.1-1'}}%)</p>
+
+<router-outlet></router-outlet>

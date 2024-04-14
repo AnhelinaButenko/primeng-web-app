@@ -28,51 +28,6 @@ export class LayoutComponent implements OnInit{
         command: async () => {
           await this.router.navigate(['products/list']);
         },
-        // items: [
-        //   {
-        //     label: 'New',
-        //     icon: 'pi pi-fw pi-plus',
-        //   },
-        //   {
-        //     label: 'Delete',
-        //     icon: 'pi pi-fw pi-trash'
-        //   },
-        //   {
-        //     separator: true
-        //   },
-        //   {
-        //     label: 'Edit',
-        //     icon: 'pi pi-fw pi-pencil',
-        // items: [
-        //   {
-        //     label: 'Save',
-        //     icon: 'pi pi-fw pi-calendar-plus'
-        //   },
-        //   {
-        //     label: 'Delete',
-        //     icon: 'pi pi-fw pi-calendar-minus'
-        //   }
-        // ]
-        // },
-        //   {
-        //     label: 'Search',
-        //     icon: 'pi pi-fw pi-users',
-        //     items: [
-        //       {
-        //         label: 'Filter',
-        //         icon: 'pi pi-fw pi-filter',
-        //       },
-        //       {
-        //         icon: 'pi pi-fw pi-bars',
-        //         label: 'List'
-        //       }
-        //     ]
-        //   },
-        //   {
-        //     label: 'Export',
-        //     icon: 'pi pi-fw pi-external-link'
-        //   }
-        // ]
       },
       {
         label: 'Manufacturers',
@@ -86,6 +41,13 @@ export class LayoutComponent implements OnInit{
         icon: 'pi pi-shopping-bag',
         command: async () => {
           await this.router.navigate(['categories/list']);
+        }
+      },
+      {
+        label: 'Food diary',
+        icon: 'pi pi-shopping-bag',
+        command: async () => {
+          await this.router.navigate(['daily-for-day']);
         }
       },
     ];
