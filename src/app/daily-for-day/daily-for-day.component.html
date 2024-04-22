@@ -1,65 +1,61 @@
 <p><strong>Calories left: </strong>{{ caloriesLeft }}</p>
 <p><strong>Calories consumed: </strong>{{ caloriesConsumed }}</p>
 
-<p-accordion>
-  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
-    <ng-template pTemplate="header">
-      {{ dailyMeal.dailyMeals?.[0]?.mealName }}
-    </ng-template>
-    <table>
-      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
-        <ng-container *ngIf="meal.mealName === 'Breakfast'">
-          <tr *ngFor="let product of meal.productConsumptions">
-            <td>{{ product.productName }}</td>
-            <p-divider></p-divider>
-            <td>{{ product.gramsConsumed }} grams </td>
-            <td> {{ product.caloriesConsumed }} calories</td>
-          </tr>
-        </ng-container>
-      </ng-container>
-    </table>
-  </p-accordionTab>
-
-  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
-    <ng-template pTemplate="header">
-      {{ dailyMeal.dailyMeals?.[1]?.mealName }}
-    </ng-template>
-    <table>
-      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
-        <ng-container *ngIf="meal.mealName === 'Lunch'">
-          <tr *ngFor="let product of meal.productConsumptions">
-            <td>{{ product.productName }}</td>
-            <p-divider></p-divider>
-            <td>{{ product.gramsConsumed }} grams </td>
-            <td> {{ product.caloriesConsumed }} calories</td>
-          </tr>
-        </ng-container>
-      </ng-container>
-    </table>
-  </p-accordionTab>
-
-  <p-accordionTab *ngFor="let dailyMeal of dailyMealsForUser">
-    <ng-template pTemplate="header">
-      {{ dailyMeal.dailyMeals?.[2]?.mealName }}
-    </ng-template>
-    <table>
-      <ng-container *ngFor="let meal of dailyMeal.dailyMeals">
-        <ng-container *ngIf="meal.mealName === 'Dinner'">
-          <tr *ngFor="let product of meal.productConsumptions">
-            <td>{{ product.productName }}</td>
-            <p-divider></p-divider>
-            <td>{{ product.gramsConsumed }} grams </td>
-            <td> {{ product.caloriesConsumed }} calories</td>
-          </tr>
-        </ng-container>
-      </ng-container>
-    </table>
-  </p-accordionTab>
-</p-accordion>
+<p-table [value]="dailyMealsForUser" dataKey="mealName">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">{{ col.header }}</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-dailyMeal let-expanded="expanded" let-columns="columns">
+    <tr [pSelectableRow]="dailyMeal">
+      <td>
+        <button type="button" pButton pRipple [pRowToggler]="dailyMeal" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+      </td>
+      <td>{{ dailyMeal.mealName }}</td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="rowexpansion" let-dailyMeal>
+    <tr>
+      <td colspan="7">
+        <div class="p-3">
+          <p-table [value]="dailyMeal.productConsumptions" dataKey="productId">
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="productName">Name <p-sortIcon field="productName"></p-sortIcon></th>
+                <th pSortableColumn="gramsConsumed">Grams Consumed <p-sortIcon field="gramsConsumed"></p-sortIcon></th>
+                <th pSortableColumn="caloriesConsumed">Calories Consumed <p-sortIcon field="caloriesConsumed"></p-sortIcon></th>
+                <th pSortableColumn="proteinsConsumed">Proteins Consumed <p-sortIcon field="proteinsConsumed"></p-sortIcon></th>
+                <th pSortableColumn="fatsConsumed">Fats Consumed <p-sortIcon field="fatsConsumed"></p-sortIcon></th>
+                <th pSortableColumn="carbohydratesConsumed">Carbohydrates Consumed <p-sortIcon field="carbohydratesConsumed"></p-sortIcon></th>
+                <th style="width: 4rem"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-productConsumption>
+              <tr>
+                <td>{{ productConsumption.productName }}</td>
+                <td>{{ productConsumption.gramsConsumed }}</td>
+                <td>Calories: {{ productConsumption.caloriesConsumed | number:'1.1-1'}}</td>
+                <td>Proteins: {{ productConsumption.proteinsConsumed | number:'1.1-1'}}</td>
+                <td>Fats: {{ productConsumption.fatsConsumed | number:'1.1-1'}}</td>
+                <td>Carbohydrates: {{ productConsumption.carbohydratesConsumed | number:'1.1-1'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6">There are no products for this meal yet.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 
 <h3>Summary:</h3>
-<p><strong>Proteins: </strong>{{ proteinsConsumed }}g ({{ proteinsPercentage | number:'1.1-1'}}%)</p>
-<p><strong>Fats: </strong>{{ fatsConsumed }}g ({{ fatsPercentage | number:'1.1-1'}}%)</p>
-<p><strong>Carbohydrates: </strong>{{ carbohydratesConsumed }}g ({{ carbohydratesPercentage | number:'1.1-1'}}%)</p>
+<p><strong>Proteins: </strong>{{ proteinsConsumed | number:'1.1-1'}}g ({{ proteinsPercentage | number:'1.1-1'}}%)</p>
+<p><strong>Fats: </strong>{{ fatsConsumed | number:'1.1-1'}}g ({{ fatsPercentage | number:'1.1-1'}}%)</p>
+<p><strong>Carbohydrates: </strong>{{ carbohydratesConsumed | number:'1.1-1'}}g ({{ carbohydratesPercentage | number:'1.1-1'}}%)</p>
 
 <router-outlet></router-outlet>

@@ -11,6 +11,8 @@ import {DailyForDayComponent} from "./daily-for-day.component";
 import {DailyForDayModuleRoutingModule} from "./daily-for-day-routing.module";
 import {AccordionModule} from "primeng/accordion";
 import {DividerModule} from "primeng/divider";
+import {RippleModule} from "primeng/ripple";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import {DividerModule} from "primeng/divider";
         ReactiveFormsModule,
         AccordionModule,
         DividerModule,
+        RippleModule,
+        TableModule,
     ],
   providers: [
 

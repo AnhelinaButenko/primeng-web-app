@@ -18,4 +18,7 @@ export class ProductConsumption {
   productName?: string;
   caloriesConsumed?: number;
   gramsConsumed?: number;
+  proteinsConsumed?: number;
+  fatsConsumed?: number;
+  carbohydratesConsumed?: number;
 }
