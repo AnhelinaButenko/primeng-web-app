@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: DailyForDayComponent,
     children: [
-      // { path: '', component: ProfilesComponent},
+
     ]
   }
 ];

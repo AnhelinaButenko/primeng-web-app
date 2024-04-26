@@ -13,6 +13,7 @@ import {AccordionModule} from "primeng/accordion";
 import {DividerModule} from "primeng/divider";
 import {RippleModule} from "primeng/ripple";
 import {TableModule} from "primeng/table";
+import {MessageService} from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import {TableModule} from "primeng/table";
         TableModule,
     ],
   providers: [
-
+    MessageService
   ]
 })
 export class DailyForDayModule { }
