@@ -14,10 +14,12 @@ import {DividerModule} from "primeng/divider";
 import {RippleModule} from "primeng/ripple";
 import {TableModule} from "primeng/table";
 import {MessageService} from "primeng/api";
+import { UpsertDailyForDayComponent } from './upsert-daily-for-day/upsert-daily-for-day.component';
 
 @NgModule({
   declarations: [
-    DailyForDayComponent
+    DailyForDayComponent,
+    UpsertDailyForDayComponent
   ],
     imports: [
         CommonModule,
