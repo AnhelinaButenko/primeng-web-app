@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
+import {DailyForDayModule} from "./daily-for-day/daily-for-day.module";
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,9 @@ const routes: Routes = [{
     {
       path: 'profile',
       loadChildren: () => import('./profiles/profiles.module').then((m: any) => m.ProfilesModule) },
+    {
+      path: 'daily-for-day',
+      loadChildren: () => import('./daily-for-day/daily-for-day.module').then((m: any) => m.DailyForDayModule) },
   ]
 }]
 
