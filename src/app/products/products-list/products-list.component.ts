@@ -45,31 +45,6 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
               private messageService: MessageService) {
   }
 
-  // private filterBySearchString(products: IProduct[], searchStr: string): IProduct[] {
-  //   if (!searchStr) return products;
-  //   return products.filter(p => p.name.toLowerCase().includes(searchStr.toLowerCase()));
-  // }
-  //
-  // private filterByManufacturer(products: IProduct[], filterType: string): IProduct[] {
-  //   switch (filterType) {
-  //     case 'withManufacturer':
-  //       return products.filter(p => p.manufacturerName);
-  //     case 'withoutManufacturer':
-  //       return products.filter(p => !p.manufacturerName);
-  //     default:
-  //       return products;
-  //   }
-  // }
-  //
-  // performFilter(): void {
-  //   let filteredProducts = this.productsList;
-  //
-  //   filteredProducts = this.filterBySearchString(filteredProducts, this.listFilter);
-  //   filteredProducts = this.filterByManufacturer(filteredProducts, this.selectedFilterOption);
-  //
-  //   this.filteredProducts = filteredProducts;
-  // }
-
   applyFilters(): void {
     this.isLoading = true;
 
@@ -97,7 +72,6 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
 
   onFilterChange(event: any): void {
     this.selectedFilterOption = event.value.value;
-    // this.performFilter();
  }
 
   onDelete(id: number): void {
@@ -109,7 +83,6 @@ export class ProductsListComponent implements  OnInit, OnDestroy{
             next: products => {
               this.show = false;
               this.productsList = products;
-              // this.filteredProducts = this.productsList;
             }
           });
         }, 2000);

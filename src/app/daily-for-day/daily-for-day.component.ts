@@ -3,6 +3,7 @@ import {MenuItem, MessageService} from "primeng/api";
 import {DailyForDayService} from "./daily-for-day.service";
 import {DailyForDayUserDto, DailyMeal, ProductConsumption} from "./daily-for-day";
 import {Subscription} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-daily-for-day',
@@ -10,7 +11,7 @@ import {Subscription} from "rxjs";
   styleUrls: ['./daily-for-day.component.scss']
 })
 export class DailyForDayComponent implements OnInit, OnDestroy{
-  constructor(private dailyForDayService: DailyForDayService, private messageService: MessageService) { }
+  constructor(private dailyForDayService: DailyForDayService, private messageService: MessageService, private router: Router) { }
 
   caloriesLeft: number | undefined;
   caloriesConsumed: number | undefined;
@@ -56,47 +57,21 @@ export class DailyForDayComponent implements OnInit, OnDestroy{
     this.onSubmit();
   }
 
-  onDeleteBreakfastProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption): void  {
-    this.deleteSub = this.dailyForDayService.deleteBreakfastProduct(dailyForDayUserDto, prodConsuption, this.date).subscribe(
+  onDeleteMealProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption): void  {
+    this.deleteSub = this.dailyForDayService.deleteMealProduct(dailyForDayUserDto, prodConsuption, this.date).subscribe(
       response => {
-        console.log('Breakfast product deleted successfully');
+        console.log('Meal product deleted successfully');
         this.onSubmit();
       },
       error => {
-        console.error('Error deleting breakfast product:', error);
-        this.errorMessage = 'Error deleting breakfast product';
-      }
-    );
-  }
-
-  onDeleteLunchProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption): void  {
-    this.deleteSub = this.dailyForDayService.deleteLunchProduct(dailyForDayUserDto, prodConsuption, this.date).subscribe(
-      response => {
-        console.log('Lunch product deleted successfully');
-        this.onSubmit();
-      },
-      error => {
-        console.error('Error deleting lunch product:', error);
-        this.errorMessage = 'Error deleting lunch product';
-        }
-      );
-  }
-
-  onDeleteDinnerProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption): void  {
-    this.deleteSub = this.dailyForDayService.deleteDinnerProduct(dailyForDayUserDto, prodConsuption, this.date).subscribe(
-      response => {
-        console.log('Dinner product deleted successfully');
-        this.onSubmit();
-      },
-      error => {
-        console.error('Error deleting dinner product:', error);
-        this.errorMessage = 'Error deleting dinner product';
+        console.error('Error deleting meal product:', error);
+        this.errorMessage = 'Error deleting meal product';
       }
     );
   }
 
   onCreate(): void {
-    // this.router.navigate(['categories/categories-create']);
+    this.router.navigate(['products/list']);
   }
 
   onUpdate(id: number): void {

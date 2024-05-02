@@ -45,14 +45,8 @@
                 <div class="ml-3 mt-2 mb-2">
                   <p-button label="Update" [text]="true" [raised]="true" size="small"></p-button>
 
-                    <ng-container *ngIf="dailyMeal.mealName === 'Breakfast'">
-                      <p-button (click)="onDeleteBreakfastProduct(dailyForDayUserDto, productConsumption)" label="Delete" [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
-                    </ng-container>
-                    <ng-container *ngIf="dailyMeal.mealName === 'Lunch'">
-                      <p-button (click)="onDeleteLunchProduct(dailyForDayUserDto, productConsumption)" label="Delete" [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
-                    </ng-container>
-                    <ng-container *ngIf="dailyMeal.mealName === 'Dinner'">
-                      <p-button (click)="onDeleteDinnerProduct(dailyForDayUserDto, productConsumption)" label="Delete" [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
+                    <ng-container >
+                      <p-button (click)="onDeleteMealProduct(dailyForDayUserDto, productConsumption)" label="Delete" [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
                     </ng-container>
                 </div>
               </tr>
