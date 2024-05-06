@@ -30,7 +30,6 @@ export class DailyForDayListComponent implements OnInit, OnDestroy{
   deleteSub!: Subscription;
   updateSub!: Subscription;
   mealProductId: number | undefined;
-
   private readonly userId: number = 1;
   public date: string = '2024-04-13';
 
@@ -43,7 +42,6 @@ export class DailyForDayListComponent implements OnInit, OnDestroy{
         this.fatsConsumed = data.fatsConsumed || 0;
         this.carbohydratesConsumed = data.carbohydratesConsumed || 0;
         this.dailyForDayUserDto = data;
-        this.mealProductId = data.mealProductId || 0;
 
         this.proteinsPercentage = ((this.proteinsConsumed + this.fatsConsumed + this.carbohydratesConsumed) / this.proteinsConsumed) * 100;
         this.fatsPercentage = (this.fatsConsumed / (this.proteinsConsumed + this.fatsConsumed + this.carbohydratesConsumed)) * 100;
@@ -83,6 +81,8 @@ export class DailyForDayListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

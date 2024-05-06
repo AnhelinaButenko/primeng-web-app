@@ -16,10 +16,10 @@ export class DailyForDayService {
   }
 
   deleteMealProduct(dailyForDayUserDto?: DailyForDayUserDto, prodConsuption?: ProductConsumption, date?: string) : Observable<any> {
-    return this.https.delete<ProductConsumption>(`${this.dailyForDayUrl}/removeMealProduct/${dailyForDayUserDto?.userId}/${dailyForDayUserDto?.mealProductId}/${prodConsuption?.productId}?date=${date}`);
+    return this.https.delete<ProductConsumption>(`${this.dailyForDayUrl}/removeMealProduct/${dailyForDayUserDto?.userId}/${prodConsuption?.mealProductId}/${prodConsuption?.productId}?date=${date}`);
   }
 
-  updateMealProduct(dailyForDayUserDto?: DailyForDayUserDto, updatedMealProduct?: MealProductDto, date?: string): Observable<any> {
-    return this.https.put<DailyForDayUserDto>(`${this.dailyForDayUrl}/updateMealProduct/${dailyForDayUserDto?.userId}/${dailyForDayUserDto?.mealProductId}/${updatedMealProduct?.productId}?date=${date}`, updatedMealProduct);
+  updateMealProduct(dailyForDayUserDto?: DailyForDayUserDto, prodConsuption?: ProductConsumption, updatedMealProduct?: MealProductDto, date?: string): Observable<any> {
+    return this.https.put<DailyForDayUserDto>(`${this.dailyForDayUrl}/updateMealProduct/${dailyForDayUserDto?.userId}/${prodConsuption?.mealProductId}/${updatedMealProduct?.productId}?date=${date}`, updatedMealProduct);
   }
 }

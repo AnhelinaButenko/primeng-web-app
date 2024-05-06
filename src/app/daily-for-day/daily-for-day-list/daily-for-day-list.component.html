@@ -47,7 +47,7 @@
                   <ng-container >
                     <p-button (click)="onDeleteMealProduct(dailyForDayUserDto, productConsumption)" label="Delete" [text]="true" [raised]="true" [plain]="true" size="small"></p-button>
                     <p-button label="Update"
-                              (click)="onUpdate(dailyForDayUserDto?.userId, dailyForDayUserDto?.mealProductId, productConsumption.productId)"
+                              (click)="onUpdate(dailyForDayUserDto?.userId, productConsumption?.mealProductId, productConsumption.productId)"
                               [raised]="true"
                               [plain]="true" size="small"></p-button>
                   </ng-container>
