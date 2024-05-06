@@ -16,11 +16,13 @@ import {TableModule} from "primeng/table";
 import {MessageService} from "primeng/api";
 import { UpsertDailyForDayComponent } from './upsert-daily-for-day/upsert-daily-for-day.component';
 import {MessagesModule} from "primeng/messages";
+import { DailyForDayListComponent } from './daily-for-day-list/daily-for-day-list.component';
 
 @NgModule({
   declarations: [
     DailyForDayComponent,
-    UpsertDailyForDayComponent
+    UpsertDailyForDayComponent,
+    DailyForDayListComponent
   ],
     imports: [
         CommonModule,

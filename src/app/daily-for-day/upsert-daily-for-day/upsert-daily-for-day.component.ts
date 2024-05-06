@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {DailyForDayService} from "../daily-for-day.service";
-import {ProductConsumption} from "../daily-for-day";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {DailyForDayService} from "../daily-for-day-list/daily-for-day.service";
+import {ProductConsumption} from "../daily-for-day-list/daily-for-day";
 
 @Component({
   selector: 'app-upsert-daily-for-day',
