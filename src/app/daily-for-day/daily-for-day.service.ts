@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {DailyForDayUserDto, ProductConsumption} from "./daily-for-day";
+import {MealProductDto} from "./mealProductDto";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,11 @@ export class DailyForDayService {
     return this.https.get<DailyForDayUserDto>(`${this.dailyForDayUrl}/${userId}?date=${date}`);
   }
 
-  deleteMealProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption, date: string) : Observable<any> {
-    return this.https.delete<ProductConsumption>(`${this.dailyForDayUrl}/removeMealProduct/${dailyForDayUserDto.userId}/${dailyForDayUserDto.mealProductId}/${prodConsuption.productId}?date=${date}`);
+  deleteMealProduct(dailyForDayUserDto?: DailyForDayUserDto, prodConsuption?: ProductConsumption, date?: string) : Observable<any> {
+    return this.https.delete<ProductConsumption>(`${this.dailyForDayUrl}/removeMealProduct/${dailyForDayUserDto?.userId}/${dailyForDayUserDto?.mealProductId}/${prodConsuption?.productId}?date=${date}`);
+  }
+
+  updateMealProduct(dailyForDayUserDto?: DailyForDayUserDto, updatedMealProduct?: MealProductDto, date?: string): Observable<any> {
+    return this.https.put<DailyForDayUserDto>(`${this.dailyForDayUrl}/updateMealProduct/${dailyForDayUserDto?.userId}/${dailyForDayUserDto?.mealProductId}/${updatedMealProduct?.productId}?date=${date}`, updatedMealProduct);
   }
 }

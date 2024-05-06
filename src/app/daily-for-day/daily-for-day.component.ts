@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MenuItem, MessageService} from "primeng/api";
+import {MessageService} from "primeng/api";
 import {DailyForDayService} from "./daily-for-day.service";
 import {DailyForDayUserDto, DailyMeal, ProductConsumption} from "./daily-for-day";
 import {Subscription} from "rxjs";
@@ -21,12 +21,14 @@ export class DailyForDayComponent implements OnInit, OnDestroy{
   proteinsPercentage: number | undefined;
   fatsPercentage: number | undefined;
   carbohydratesPercentage: number | undefined;
+
   dailyMealsForUser: DailyMeal[] = [];
-  dailyForDayUserDto: DailyForDayUserDto = new DailyForDayUserDto();
+  dailyForDayUserDto: DailyForDayUserDto | undefined;
   errorMessage = '';
   sub!: Subscription;
   deleteSub!: Subscription;
   updateSub!: Subscription;
+  mealProductId: number | undefined;
 
   private readonly userId: number = 1;
   public date: string = '2024-04-13';
@@ -40,6 +42,7 @@ export class DailyForDayComponent implements OnInit, OnDestroy{
         this.fatsConsumed = data.fatsConsumed || 0;
         this.carbohydratesConsumed = data.carbohydratesConsumed || 0;
         this.dailyForDayUserDto = data;
+        this.mealProductId = data.mealProductId || 0;
 
         this.proteinsPercentage = ((this.proteinsConsumed + this.fatsConsumed + this.carbohydratesConsumed) / this.proteinsConsumed) * 100;
         this.fatsPercentage = (this.fatsConsumed / (this.proteinsConsumed + this.fatsConsumed + this.carbohydratesConsumed)) * 100;
@@ -57,7 +60,7 @@ export class DailyForDayComponent implements OnInit, OnDestroy{
     this.onSubmit();
   }
 
-  onDeleteMealProduct(dailyForDayUserDto: DailyForDayUserDto, prodConsuption: ProductConsumption): void  {
+  onDeleteMealProduct(dailyForDayUserDto: DailyForDayUserDto | undefined, prodConsuption: ProductConsumption): void  {
     this.deleteSub = this.dailyForDayService.deleteMealProduct(dailyForDayUserDto, prodConsuption, this.date).subscribe(
       response => {
         console.log('Meal product deleted successfully');
@@ -71,11 +74,11 @@ export class DailyForDayComponent implements OnInit, OnDestroy{
   }
 
   onCreate(): void {
-    this.router.navigate(['products/list']);
+
   }
 
-  onUpdate(id: number): void {
-    // this.router.navigate([``]);
+  onUpdate(userId?: number, mealProductId?: number, productId?: number): void {
+    this.router.navigate([`/daily-for-day/updateMealProduct/${userId}/${mealProductId}/${productId}`], { queryParams: { date: this.date } });
   }
 
   ngOnDestroy(): void {
