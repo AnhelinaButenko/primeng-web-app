@@ -6,7 +6,6 @@ export class DailyForDayUserDto {
   proteinsConsumed?: number;
   fatsConsumed?: number;
   carbohydratesConsumed?: number;
-  mealProductId?: number;
 }
 
 export class DailyMeal {
@@ -22,4 +21,5 @@ export class ProductConsumption {
   proteinsConsumed?: number;
   fatsConsumed?: number;
   carbohydratesConsumed?: number;
+  mealProductId?: number;
 }

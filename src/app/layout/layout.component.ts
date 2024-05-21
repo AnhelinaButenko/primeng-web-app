@@ -47,7 +47,7 @@ export class LayoutComponent implements OnInit{
         label: 'Food diary',
         icon: 'pi pi-shopping-bag',
         command: async () => {
-          await this.router.navigate(['daily-for-day']);
+          await this.router.navigate(['daily-for-day/list']);
         }
       },
     ];

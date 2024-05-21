@@ -40,9 +40,6 @@
   </ng-template>
   <ng-template pTemplate="body" let-product>
     <tr>
-      <div class="mt-6">
-      <p-button label="Add in mealtime" [text]="true" [raised]="true" size="small"></p-button>
-      </div>
       <td>{{ product.id | number }}</td>
       <td>{{ product.name }}</td>
       <td>{{ product.caloriePer100g | number }}</td>

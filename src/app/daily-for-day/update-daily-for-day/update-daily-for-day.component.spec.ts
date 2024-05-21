@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpsertDailyForDayComponent } from './upsert-daily-for-day.component';
+import { UpdateDailyForDayComponent } from './update-daily-for-day.component';
 
 describe('UpsertDailyForDayComponent', () => {
-  let component: UpsertDailyForDayComponent;
-  let fixture: ComponentFixture<UpsertDailyForDayComponent>;
+  let component: UpdateDailyForDayComponent;
+  let fixture: ComponentFixture<UpdateDailyForDayComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UpsertDailyForDayComponent]
+      declarations: [UpdateDailyForDayComponent]
     });
-    fixture = TestBed.createComponent(UpsertDailyForDayComponent);
+    fixture = TestBed.createComponent(UpdateDailyForDayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
