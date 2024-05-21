@@ -1,7 +1,7 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {DailyForDayComponent} from "./daily-for-day.component";
-import {UpsertDailyForDayComponent} from "./upsert-daily-for-day/upsert-daily-for-day.component";
+import {UpdateDailyForDayComponent} from "./update-daily-for-day/update-daily-for-day.component";
 import {DailyForDayListComponent} from "./daily-for-day-list/daily-for-day-list.component";
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
     component: DailyForDayComponent,
     children: [
       { path: 'list', component: DailyForDayListComponent},
-      { path: 'updateMealProduct/:userId/:mealProductId/:productId', component: UpsertDailyForDayComponent}
+      { path: 'updateMealProduct/:userId/:mealProductId', component: UpdateDailyForDayComponent}
     ]
   }
 ];

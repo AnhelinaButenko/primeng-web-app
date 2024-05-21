@@ -28,8 +28,6 @@ export class DailyForDayListComponent implements OnInit, OnDestroy{
   errorMessage = '';
   sub!: Subscription;
   deleteSub!: Subscription;
-  updateSub!: Subscription;
-  mealProductId: number | undefined;
   private readonly userId: number = 1;
   public date: string = '2024-04-13';
 
@@ -72,12 +70,8 @@ export class DailyForDayListComponent implements OnInit, OnDestroy{
     );
   }
 
-  onCreate(): void {
-
-  }
-
-  onUpdate(userId?: number, mealProductId?: number, productId?: number): void {
-    this.router.navigate([`/daily-for-day/updateMealProduct/${userId}/${mealProductId}/${productId}`], { queryParams: { date: this.date } });
+  onUpdate(userId?: number, mealProductId?: number): void {
+    this.router.navigate([`/daily-for-day/updateMealProduct/${userId}/${mealProductId}`], { queryParams: { date: this.date } });
   }
 
   ngOnDestroy(): void {
